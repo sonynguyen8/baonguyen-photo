@@ -1,0 +1,249 @@
+---
+import { getMenu } from "emdash";
+
+const menu = await getMenu("primary");
+const isLoggedIn = !!Astro.locals.user;
+
+const navLinks = menu?.items ?? [];
+const currentPath = Astro.url.pathname;
+---
+
+<nav id="site-nav" class="site-nav">
+	<a href="/" class="nav-logo">BAONGUYENSTUDIO</a>
+
+	<div class="nav-links" id="nav-links">
+		{
+			navLinks.map((item) => (
+				<a
+					href={item.url}
+					target={item.target}
+					class:list={["nav-link", { active: currentPath === item.url }]}
+				>
+					{item.label}
+				</a>
+			))
+		}
+		{
+			isLoggedIn && (
+				<a href="/_emdash/admin" class="nav-link nav-admin">
+					Admin
+				</a>
+			)
+		}
+	</div>
+
+	<button class="nav-menu-btn" id="nav-menu-btn" aria-label="Open menu" aria-expanded="false">
+		<span class="material-symbols-outlined" id="menu-icon">menu</span>
+	</button>
+</nav>
+
+<!-- Mobile drawer -->
+<div class="nav-drawer" id="nav-drawer" aria-hidden="true">
+	<div class="nav-drawer-inner">
+		{
+			navLinks.map((item) => (
+				<a
+					href={item.url}
+					target={item.target}
+					class:list={["nav-drawer-link", { active: currentPath === item.url }]}
+				>
+					{item.label}
+				</a>
+			))
+		}
+		{
+			isLoggedIn && (
+				<a href="/_emdash/admin" class="nav-drawer-link">
+					Admin
+				</a>
+			)
+		}
+	</div>
+</div>
+<div class="nav-drawer-backdrop" id="nav-backdrop"></div>
+
+<script>
+	const btn = document.getElementById("nav-menu-btn")!;
+	const drawer = document.getElementById("nav-drawer")!;
+	const backdrop = document.getElementById("nav-backdrop")!;
+	const icon = document.getElementById("menu-icon")!;
+
+	function openDrawer() {
+		drawer.setAttribute("aria-hidden", "false");
+		drawer.classList.add("open");
+		backdrop.classList.add("visible");
+		btn.setAttribute("aria-expanded", "true");
+		icon.textContent = "close";
+		document.body.style.overflow = "hidden";
+	}
+
+	function closeDrawer() {
+		drawer.setAttribute("aria-hidden", "true");
+		drawer.classList.remove("open");
+		backdrop.classList.remove("visible");
+		btn.setAttribute("aria-expanded", "false");
+		icon.textContent = "menu";
+		document.body.style.overflow = "";
+	}
+
+	btn.addEventListener("click", () => {
+		drawer.classList.contains("open") ? closeDrawer() : openDrawer();
+	});
+	backdrop.addEventListener("click", closeDrawer);
+</script>
+
+<style>
+	.site-nav {
+		position: fixed;
+		top: 0;
+		left: 0;
+		right: 0;
+		z-index: 50;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding: 1.5rem 3rem;
+		background: rgba(19, 19, 19, 0.7);
+		backdrop-filter: blur(20px);
+		-webkit-backdrop-filter: blur(20px);
+	}
+
+	.nav-logo {
+		font-family: "Newsreader", serif;
+		font-size: 1.2rem;
+		font-weight: 300;
+		letter-spacing: 0.2em;
+		color: #ffffff;
+		text-decoration: none;
+		text-transform: uppercase;
+		flex-shrink: 0;
+	}
+
+	.nav-links {
+		display: flex;
+		align-items: center;
+		gap: 3rem;
+	}
+
+	.nav-link {
+		font-family: "Newsreader", serif;
+		font-style: italic;
+		font-size: 1.1rem;
+		letter-spacing: -0.01em;
+		color: rgba(255, 255, 255, 0.35);
+		text-decoration: none;
+		transition: color 0.4s ease;
+	}
+
+	.nav-link:hover,
+	.nav-link.active {
+		color: #ffffff;
+	}
+
+	.nav-link.active {
+		border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+		padding-bottom: 2px;
+	}
+
+	.nav-admin {
+		font-style: normal;
+		font-size: 0.75rem;
+		font-family: "Manrope", sans-serif;
+		letter-spacing: 0.1em;
+		text-transform: uppercase;
+		opacity: 0.4;
+	}
+
+	.nav-admin:hover {
+		opacity: 1;
+	}
+
+	.nav-menu-btn {
+		display: none;
+		background: none;
+		border: none;
+		color: #ffffff;
+		cursor: pointer;
+		padding: 0;
+		line-height: 1;
+	}
+
+	.nav-menu-btn .material-symbols-outlined {
+		font-size: 1.5rem;
+	}
+
+	/* Mobile drawer */
+	.nav-drawer {
+		position: fixed;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		width: min(320px, 85vw);
+		z-index: 200;
+		background: #1b1b1b;
+		transform: translateX(100%);
+		transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+		display: flex;
+		flex-direction: column;
+	}
+
+	.nav-drawer.open {
+		transform: translateX(0);
+	}
+
+	.nav-drawer-inner {
+		display: flex;
+		flex-direction: column;
+		gap: 0;
+		padding: 5rem 2.5rem 2rem;
+	}
+
+	.nav-drawer-link {
+		font-family: "Newsreader", serif;
+		font-style: italic;
+		font-size: 1.75rem;
+		font-weight: 300;
+		color: rgba(255, 255, 255, 0.5);
+		text-decoration: none;
+		padding: 0.75rem 0;
+		border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+		transition: color 0.3s ease;
+	}
+
+	.nav-drawer-link:hover,
+	.nav-drawer-link.active {
+		color: #ffffff;
+	}
+
+	.nav-drawer-backdrop {
+		display: none;
+		position: fixed;
+		inset: 0;
+		z-index: 190;
+		background: rgba(0, 0, 0, 0.6);
+		opacity: 0;
+		transition: opacity 0.3s ease;
+	}
+
+	.nav-drawer-backdrop.visible {
+		opacity: 1;
+	}
+
+	@media (max-width: 768px) {
+		.site-nav {
+			padding: 1.25rem 1.5rem;
+		}
+
+		.nav-links {
+			display: none;
+		}
+
+		.nav-menu-btn {
+			display: block;
+		}
+
+		.nav-drawer-backdrop {
+			display: block;
+		}
+	}
+</style>

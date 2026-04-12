@@ -1,0 +1,506 @@
+---
+import { getEmDashCollection, getEmDashEntry } from "emdash";
+import { Image } from "emdash/ui";
+import Base from "../../layouts/Base.astro";
+
+const { slug } = Astro.params;
+if (!slug) return Astro.redirect("/portfolios");
+
+const { entry: portfolio, cacheHint } = await getEmDashEntry("portfolios", slug);
+if (!portfolio) return Astro.redirect("/portfolios");
+
+Astro.cache.set(cacheHint);
+
+// Fetch all portfolios to build next/prev navigation
+const { entries: allPortfolios } = await getEmDashCollection("portfolios");
+const currentIndex = allPortfolios.findIndex((p) => p.id === portfolio.id);
+const nextPortfolio = allPortfolios[currentIndex + 1] ?? allPortfolios[0];
+const isLooping = currentIndex === allPortfolios.length - 1;
+
+const d = portfolio.data;
+---
+
+<Base
+	title={d.title ?? "Portfolio"}
+	description={d.description ?? undefined}
+	image={d.cover_image?.src ?? undefined}
+>
+
+	<div class="detail-page">
+
+		<!-- ─── Header ───────────────────────────────── -->
+		<header class="detail-header">
+			<div class="detail-header-inner">
+				<a href="/portfolios" class="back-link">
+					<span class="material-symbols-outlined back-icon">arrow_back</span>
+					<span>Back to Portfolio</span>
+				</a>
+
+				<h1 class="detail-title">{d.title}</h1>
+
+				{d.description && (
+					<p class="detail-description">{d.description}</p>
+				)}
+			</div>
+		</header>
+
+		<!-- ─── Cinematic Gallery ─────────────────────── -->
+		<section class="plates">
+			<div class="plates-inner">
+
+				<!-- Row 1: portrait + square -->
+				{(d.plate_1 || d.plate_2) && (
+					<div class="row row-1">
+						{d.plate_1 && (
+							<div class="plate plate-1">
+								<div class="plate-img-wrap ratio-2-3">
+									<Image image={d.plate_1} class="plate-img" />
+								</div>
+								<div class="plate-caption">
+									<span class="plate-no">Plate No. 001</span>
+									{d.plate_1_caption && (
+										<span class="plate-name italic">{d.plate_1_caption}</span>
+									)}
+								</div>
+							</div>
+						)}
+						{d.plate_2 && (
+							<div class="plate plate-2">
+								<div class="plate-img-wrap ratio-1-1">
+									<Image image={d.plate_2} class="plate-img" />
+								</div>
+								<div class="plate-caption">
+									<span class="plate-no">Plate No. 002</span>
+									{d.plate_2_caption && (
+										<span class="plate-name italic">{d.plate_2_caption}</span>
+									)}
+								</div>
+							</div>
+						)}
+					</div>
+				)}
+
+				<!-- Row 2: wide cinematic -->
+				{d.plate_3 && (
+					<div class="row row-2">
+						<div class="plate plate-3">
+							<div class="plate-img-wrap">
+								<Image image={d.plate_3} class="plate-img plate-img-natural" />
+							</div>
+							<div class="plate-3-footer">
+								<div class="plate-3-editorial">
+									{d.plate_3_title && (
+										<h3 class="plate-3-title">{d.plate_3_title}</h3>
+									)}
+									{d.plate_3_description && (
+										<p class="plate-3-desc">{d.plate_3_description}</p>
+									)}
+								</div>
+								<span class="plate-no plate-no-right">Plate No. 003 / Horizon</span>
+							</div>
+						</div>
+					</div>
+				)}
+
+				<!-- Row 3: wide + tall -->
+				{(d.plate_4 || d.plate_5) && (
+					<div class="row row-3">
+						{d.plate_4 && (
+							<div class="plate plate-4">
+								<div class="plate-img-wrap ratio-16-10">
+									<Image image={d.plate_4} class="plate-img" />
+								</div>
+								<div class="plate-caption">
+									<span class="plate-no">Plate No. 004 / The Scene</span>
+									{d.plate_4_caption && (
+										<span class="plate-name italic">{d.plate_4_caption}</span>
+									)}
+								</div>
+							</div>
+						)}
+						{d.plate_5 && (
+							<div class="plate plate-5">
+								<div class="plate-img-wrap ratio-3-4">
+									<Image image={d.plate_5} class="plate-img" />
+								</div>
+								<div class="plate-caption">
+									<span class="plate-no">Plate No. 005 / Movement</span>
+								</div>
+							</div>
+						)}
+					</div>
+				)}
+
+				<!-- Row 4: centred hero closer -->
+				{d.plate_6 && (
+					<div class="row row-4">
+						<div class="plate plate-6">
+							<div class="plate-img-wrap">
+								<Image image={d.plate_6} class="plate-img plate-img-natural" />
+							</div>
+							<div class="plate-6-footer">
+								<span class="plate-no">Plate No. 006 / Ascension</span>
+								{d.plate_6_title && (
+									<h2 class="plate-6-title">{d.plate_6_title}</h2>
+								)}
+							</div>
+						</div>
+					</div>
+				)}
+
+			</div>
+		</section>
+
+		<!-- ─── Next Project ──────────────────────────── -->
+		{nextPortfolio && nextPortfolio.id !== portfolio.id && (
+			<div class="next-project">
+				<div class="next-project-inner">
+					<span class="next-label">
+						{isLooping ? "Back to first" : "Next Project"}
+					</span>
+					<a href={`/portfolios/${nextPortfolio.id}`} class="next-link">
+						<span class="next-title">{nextPortfolio.data.title}</span>
+						<span class="material-symbols-outlined next-arrow">east</span>
+					</a>
+				</div>
+			</div>
+		)}
+
+	</div>
+
+</Base>
+
+<style>
+	.detail-page {
+		padding-top: 7rem;
+		padding-bottom: 10rem;
+	}
+
+	/* ─── Header ──────────────────────────────────── */
+	.detail-header {
+		padding: 3rem 3rem 0;
+		margin-bottom: 6rem;
+	}
+
+	.detail-header-inner {
+		max-width: 1600px;
+		margin: 0 auto;
+		max-width: 56rem;
+	}
+
+	.back-link {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.5rem;
+		font-family: var(--font-body);
+		font-size: 0.65rem;
+		text-transform: uppercase;
+		letter-spacing: 0.2em;
+		color: rgba(145, 145, 145, 0.8);
+		text-decoration: none;
+		margin-bottom: 3rem;
+		transition: color 0.4s ease;
+	}
+
+	.back-link:hover {
+		color: #ffffff;
+	}
+
+	.back-icon {
+		font-size: 1rem;
+	}
+
+	.detail-title {
+		font-family: var(--font-headline);
+		font-style: italic;
+		font-weight: 300;
+		font-size: clamp(3rem, 8vw, 6rem);
+		line-height: 1.05;
+		color: #ffffff;
+		letter-spacing: -0.02em;
+		margin-bottom: 2rem;
+	}
+
+	.detail-description {
+		font-family: var(--font-body);
+		font-size: 1.1rem;
+		line-height: 1.75;
+		color: rgba(145, 145, 145, 0.8);
+		max-width: 40rem;
+		font-weight: 300;
+	}
+
+	/* ─── Plates ─────────────────────────────────── */
+	.plates {
+		padding: 0 3rem;
+	}
+
+	.plates-inner {
+		max-width: 1600px;
+		margin: 0 auto;
+		display: flex;
+		flex-direction: column;
+		gap: 8rem;
+	}
+
+	/* Aspect ratio helpers */
+	.plate-img-wrap {
+		overflow: hidden;
+		background: #111111;
+		position: relative;
+	}
+
+	.ratio-2-3  { aspect-ratio: 2 / 3; }
+	.ratio-1-1  { aspect-ratio: 1 / 1; }
+	.ratio-16-10 { aspect-ratio: 16 / 10; }
+	.ratio-3-4  { aspect-ratio: 3 / 4; }
+
+	.plate-img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		display: block;
+		filter: grayscale(1);
+		transition: filter 1.2s cubic-bezier(0.22, 1, 0.36, 1), transform 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+	}
+
+	.plate-img-natural {
+		height: auto;
+		aspect-ratio: unset;
+	}
+
+	.plate-img-wrap:hover .plate-img {
+		filter: grayscale(0);
+		transform: scale(1.02);
+	}
+
+	.plate-caption {
+		display: flex;
+		justify-content: space-between;
+		align-items: baseline;
+		border-bottom: 1px solid #1f1f1f;
+		padding-bottom: 0.5rem;
+		margin-top: 2rem;
+	}
+
+	.plate-no {
+		font-family: var(--font-body);
+		font-size: 0.5625rem;
+		text-transform: uppercase;
+		letter-spacing: 0.3em;
+		color: rgba(145, 145, 145, 0.5);
+	}
+
+	.plate-name {
+		font-family: var(--font-headline);
+		font-size: 0.75rem;
+		color: rgba(145, 145, 145, 0.6);
+	}
+
+	.plate-name.italic {
+		font-style: italic;
+	}
+
+	/* ─── Row 1: portrait + square ─────────────────── */
+	.row-1 {
+		display: grid;
+		grid-template-columns: 5fr 6fr;
+		gap: 3rem;
+		align-items: start;
+	}
+
+	.plate-2 {
+		margin-top: 5rem;
+	}
+
+	/* ─── Row 2: wide landscape ─────────────────────── */
+	.row-2 {
+		display: flex;
+		justify-content: center;
+	}
+
+	.plate-3 {
+		max-width: 62rem;
+		width: 100%;
+	}
+
+	.plate-3-footer {
+		display: flex;
+		flex-direction: column;
+		gap: 1rem;
+		margin-top: 2rem;
+	}
+
+	.plate-3-editorial {
+		max-width: 28rem;
+	}
+
+	.plate-3-title {
+		font-family: var(--font-headline);
+		font-style: italic;
+		font-size: 1.5rem;
+		font-weight: 300;
+		color: #ffffff;
+		margin-bottom: 0.5rem;
+	}
+
+	.plate-3-desc {
+		font-family: var(--font-body);
+		font-size: 0.8125rem;
+		line-height: 1.65;
+		color: rgba(145, 145, 145, 0.6);
+	}
+
+	.plate-no-right {
+		align-self: flex-end;
+	}
+
+	@media (min-width: 768px) {
+		.plate-3-footer {
+			flex-direction: row;
+			justify-content: space-between;
+			align-items: flex-end;
+		}
+	}
+
+	/* ─── Row 3: wide + tall ─────────────────────── */
+	.row-3 {
+		display: grid;
+		grid-template-columns: 7fr 4fr;
+		gap: 3rem;
+		align-items: end;
+	}
+
+	.plate-5 {
+		margin-bottom: 3rem;
+	}
+
+	/* ─── Row 4: centred hero ────────────────────── */
+	.row-4 {
+		display: flex;
+		justify-content: center;
+	}
+
+	.plate-6 {
+		max-width: 48rem;
+		width: 100%;
+	}
+
+	.plate-6-footer {
+		text-align: center;
+		margin-top: 3rem;
+	}
+
+	.plate-6-footer .plate-no {
+		display: block;
+		margin-bottom: 1rem;
+	}
+
+	.plate-6-title {
+		font-family: var(--font-headline);
+		font-style: italic;
+		font-weight: 300;
+		font-size: clamp(2rem, 5vw, 4rem);
+		line-height: 1.05;
+		color: #ffffff;
+	}
+
+	/* ─── Next Project ───────────────────────────── */
+	.next-project {
+		margin-top: 10rem;
+		padding: 3rem 3rem 0;
+		border-top: 1px solid rgba(255, 255, 255, 0.06);
+	}
+
+	.next-project-inner {
+		max-width: 1600px;
+		margin: 0 auto;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+
+	.next-label {
+		font-family: var(--font-headline);
+		font-style: italic;
+		font-size: 1.25rem;
+		color: rgba(145, 145, 145, 0.5);
+	}
+
+	.next-link {
+		display: flex;
+		align-items: center;
+		gap: 1rem;
+		text-decoration: none;
+	}
+
+	.next-title {
+		font-family: var(--font-headline);
+		font-weight: 300;
+		font-size: clamp(1.75rem, 3.5vw, 3rem);
+		color: var(--color-on-surface);
+		transition: font-style 0.3s ease;
+	}
+
+	.next-link:hover .next-title {
+		font-style: italic;
+	}
+
+	.next-arrow {
+		font-size: 2rem;
+		color: var(--color-on-surface);
+	}
+
+	/* ─── Responsive ─────────────────────────────── */
+	@media (max-width: 1024px) {
+		.plates {
+			padding: 0 2rem;
+		}
+
+		.detail-header {
+			padding: 3rem 2rem 0;
+		}
+
+		.next-project {
+			padding-left: 2rem;
+			padding-right: 2rem;
+		}
+
+		.plates-inner {
+			gap: 6rem;
+		}
+	}
+
+	@media (max-width: 768px) {
+		.row-1,
+		.row-3 {
+			grid-template-columns: 1fr;
+			gap: 4rem;
+		}
+
+		.plate-2,
+		.plate-5 {
+			margin-top: 0;
+			margin-bottom: 0;
+		}
+
+		.plates-inner {
+			gap: 4rem;
+		}
+
+		.next-project-inner {
+			flex-direction: column;
+			align-items: flex-start;
+			gap: 1.5rem;
+		}
+	}
+
+	@media (max-width: 480px) {
+		.detail-header,
+		.plates,
+		.next-project {
+			padding-left: 1.5rem;
+			padding-right: 1.5rem;
+		}
+	}
+</style>

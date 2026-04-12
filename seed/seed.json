@@ -14,6 +14,101 @@
 
 	"collections": [
 		{
+			"slug": "portfolios",
+			"label": "Portfolios",
+			"labelSingular": "Portfolio",
+			"supports": ["drafts", "revisions", "seo"],
+			"fields": [
+				{
+					"slug": "title",
+					"label": "Title",
+					"type": "string",
+					"required": true,
+					"searchable": true
+				},
+				{
+					"slug": "category",
+					"label": "Category",
+					"type": "select",
+					"options": [
+						{ "value": "Portraits", "label": "Portraits" },
+						{ "value": "Love Stories", "label": "Love Stories" },
+						{ "value": "Weddings", "label": "Weddings" }
+					]
+				},
+				{
+					"slug": "description",
+					"label": "Description",
+					"type": "text"
+				},
+				{
+					"slug": "cover_image",
+					"label": "Cover Image",
+					"type": "image"
+				},
+				{
+					"slug": "plate_1",
+					"label": "Plate 1",
+					"type": "image"
+				},
+				{
+					"slug": "plate_1_caption",
+					"label": "Plate 1 Caption",
+					"type": "string"
+				},
+				{
+					"slug": "plate_2",
+					"label": "Plate 2",
+					"type": "image"
+				},
+				{
+					"slug": "plate_2_caption",
+					"label": "Plate 2 Caption",
+					"type": "string"
+				},
+				{
+					"slug": "plate_3",
+					"label": "Plate 3 (Wide)",
+					"type": "image"
+				},
+				{
+					"slug": "plate_3_title",
+					"label": "Plate 3 Title",
+					"type": "string"
+				},
+				{
+					"slug": "plate_3_description",
+					"label": "Plate 3 Description",
+					"type": "text"
+				},
+				{
+					"slug": "plate_4",
+					"label": "Plate 4",
+					"type": "image"
+				},
+				{
+					"slug": "plate_4_caption",
+					"label": "Plate 4 Caption",
+					"type": "string"
+				},
+				{
+					"slug": "plate_5",
+					"label": "Plate 5",
+					"type": "image"
+				},
+				{
+					"slug": "plate_6",
+					"label": "Plate 6 (Hero Closing)",
+					"type": "image"
+				},
+				{
+					"slug": "plate_6_title",
+					"label": "Plate 6 Closing Title",
+					"type": "string"
+				}
+			]
+		},
+		{
 			"slug": "posts",
 			"label": "Posts",
 			"labelSingular": "Post",
@@ -116,8 +211,9 @@
 			"label": "Primary Navigation",
 			"items": [
 				{ "type": "custom", "label": "Home", "url": "/" },
+				{ "type": "custom", "label": "Portfolio", "url": "/portfolio" },
 				{ "type": "custom", "label": "About", "url": "/pages/about" },
-				{ "type": "custom", "label": "Posts", "url": "/posts" }
+				{ "type": "custom", "label": "Contact", "url": "/contact" }
 			]
 		}
 	],
@@ -235,6 +331,117 @@
 	],
 
 	"content": {
+		"portfolios": [
+			{
+				"id": "the-silent-veil",
+				"slug": "the-silent-veil",
+				"status": "published",
+				"data": {
+					"title": "The Silent Veil",
+					"category": "Weddings",
+					"description": "A monochromatic exploration of intimacy and the quiet textures of the natural world. This series captures the weight of shared silence in fog-drenched landscapes and editorial moments.",
+					"cover_image": {
+						"$media": {
+							"url": "https://lh3.googleusercontent.com/aida/ADBb0uj92xey8jGQMuyDOjLBFMINlH0omypjdpcAeeuYSkmCs3cedMNeK8Nv_9pBxI4Spe4fXfUZGWUoldjv7-6R6y-A-gMZj9pwaP9F6EtRmFOT_YW_l9aZbPVeYWqAxUGQx8XCEFJCFLxms78PZlabUPinhHBTFNwZ4kjifJIOaGYAIXE_e5c4Nj7ujOcauL-4MP-tCqfhnLV-GkiwWdjlO36W1ob5Aa1NIfFDPVaaGuOkiy17Xp1nmM3e73BplAuZ9wIOSY82R3Vx",
+							"alt": "The Silent Veil — cover",
+							"filename": "silent-veil-cover.jpg"
+						}
+					},
+					"plate_1": {
+						"$media": {
+							"url": "https://lh3.googleusercontent.com/aida/ADBb0ujHBlkB1qiO6KpPXRmJ8Y-rejHTL5EcGT7_X-UnAAi9qbB6fAU5lWk0a70Iu-YiZ9H03B4ZAizSM6czX-B2FKn5rdBrIObAgntAYTjxiWLkDCj6CwhQTH4a9hYBIOJcD5F31Bz8N3sabc7PFPYlGbZ7XVqS3NGNnrYeB9xeHBTxVnfu4AdL1un7OME4dK-VuK4EgSR33fMxqFYzRHiEBpqWU95p7MBtxT0RggScEk1TjDwV_aINB-J7livonk-jQesqDBrU0MJF7w",
+							"alt": "Portrait under veil",
+							"filename": "silent-veil-plate-1.jpg"
+						}
+					},
+					"plate_1_caption": "Intertwined",
+					"plate_2": {
+						"$media": {
+							"url": "https://lh3.googleusercontent.com/aida/ADBb0uhk1s7KtBUtIs8nhzCHLl-k2luzNmd9rv9nKYs-vhVV2uKbVQOUtC9NaRKQc6D7LTFBp90Mri3EadEikQh88I0xQnpCjoStzbouyNAvZwExwOjqvHeKielRyHdZ6XoXbVRbMMU-ekIILYK3BUv2LhczufF-50_PXi6lfZglljqi8bNmkzxBNRFcprCYsI3RGI6ZRZm2IkZ4pvJSsSjKW2o3iReej5f7l33qLEc7a-_p6zgRd87GikJNWv7NB_CXGHmuQ-lQp_vDlw",
+							"alt": "Double exposure portrait",
+							"filename": "silent-veil-plate-2.jpg"
+						}
+					},
+					"plate_2_caption": "The City Reflected",
+					"plate_3": {
+						"$media": {
+							"url": "https://lh3.googleusercontent.com/aida/ADBb0uh2ZeERMpVA8J07YzP8Z5hmKkPs7u3Y_1M-WrgjbIbggB-P8uyiWCAVwH6Hax6xPbrxy5y-MPL8lZu7yXVLmNswR1_Ig-LYoYLoO73JcDFJcAwKIXwSYHPwS2q0WnwQIZAGX_WCzSc3e4jfRjiYzP17k-ATV3nC5-oCMT42pSpRez5mL62vQRCJLYwtTrIoyzD_ccFWOZlm-79XnM6DXADNpbvIvmsVj_QXfAhGVzUBWbZRvWggpxnYWf4ciyfcjr5mCtRenvl7mg",
+							"alt": "Couple by the water",
+							"filename": "silent-veil-plate-3.jpg"
+						}
+					},
+					"plate_3_title": "Distance and Proximity",
+					"plate_3_description": "An exploration of space between two souls, set against the brutalist backdrop of the rising city skyline.",
+					"plate_4": {
+						"$media": {
+							"url": "https://lh3.googleusercontent.com/aida/ADBb0uiChWfYbIswE9Q430QcvVdgrT5lZp-f0_hRTrZ1e3nHFLC0eMABcf43zR4Tm1CNWLoOFGRdfwzVQGzvCjTP5Hr5aeFYTHqXhDj0Kji_Y0wDVgtFC79usDINTU-Lx8pWGcQ-BFI809XU7pHgzOQ-0XnMRcGfDqQoCP9A_g9FFh4VPi8t7OrPdwmQaZoGuHw5lE9Tf78PMLfp5331UlSEgYkxm0V3K1tPRFDW0o4E2hGmGAd-Zf8KKSPjbLaAg-85QNKEhCoAEc8k",
+							"alt": "Behind the scenes editorial",
+							"filename": "silent-veil-plate-4.jpg"
+						}
+					},
+					"plate_4_caption": "Curating the Moment",
+					"plate_5": {
+						"$media": {
+							"url": "https://lh3.googleusercontent.com/aida/ADBb0uh4lwq1tZiFZDPqVLuDhtNLFhKEI5Y0qxDy7_WX0gRwtmaD7X2MQcPkKQ9g28ZPTgummQiOHpjKFi2t_ANdbVR1qida8YpbtZ2lRGZGYPvFLpg4WPvttb5R1OCRGeR3UTursKcst9wz_ECZAATCsezSLPKkOcpIKF2M8eBxO243H_bBu9aGNishh2eW-LMu0j5457NBRbvgnR0xETcf9uhweDoqEiu9SEmeF3GFuxI7vCRzUHXCMy3KM9z_ot7JslatlampBNJ0wg",
+							"alt": "Couple in nature with overlay",
+							"filename": "silent-veil-plate-5.jpg"
+						}
+					},
+					"plate_6": {
+						"$media": {
+							"url": "https://lh3.googleusercontent.com/aida/ADBb0ujRdmg202ShxlbvLIK2UjwifomocZrStOBEAsHy8CSM5wFZiQ13BcCiWU5eBzgqOd2GQ3hd-SxeGmPTUg0zMvieGwKwXDaKYjySZr7wBCv5DmfcPwh0AMNVaenclSGBtnD78LF27WF33UQf9rY6kieHPKq2glpLAPHY7sJmpIUkVtQrS6qIRPGjXyiblweTAAO66p21fInWjZJ3UMeNJLApkkfItLMty-iRCtZRcQ9aA-PK0WBIQdaxudlpSiYnz7-dUv1kKc4W",
+							"alt": "Ecstatic lift with birds",
+							"filename": "silent-veil-plate-6.jpg"
+						}
+					},
+					"plate_6_title": "Weightless Devotion"
+				}
+			},
+			{
+				"id": "ethereal-bond",
+				"slug": "ethereal-bond",
+				"status": "published",
+				"data": {
+					"title": "Ethereal Bond",
+					"category": "Portraits",
+					"description": "An intimate portrait series exploring the quiet power of the individual through dramatic shadow play and architectural light.",
+					"cover_image": {
+						"$media": {
+							"url": "https://lh3.googleusercontent.com/aida/ADBb0uhaYlkBnoV6oBpTEyHwEi-1cJio8hs8L0pvPPyOWAfXbkRUxlUU_fLBJX2izWrYINRwsodul4u6NKqxkmyoHz6dwK9EPCUejcAolbRF9Ddn80w_-0PzyNmjgRnNDtMD15lZOsDzd3OCQAiMmbN0vTDGsCyFxk66MohoCbsvPAOvztAgMfP0KMR-Uh-FFqjgbt4Y9PzCplPo-j51p0Ddl6BDOY5VRVwsVw2mHtu__MU-bOeiwbyeoxfjRcpV32sihtOUcmH07bFeYA",
+							"alt": "Ethereal Bond — cover",
+							"filename": "ethereal-bond-cover.jpg"
+						}
+					},
+					"plate_1": {
+						"$media": {
+							"url": "https://lh3.googleusercontent.com/aida/ADBb0uhg3Aqm0TnFUmcm4pMx3OuIszVONDBOANUjtgZk-NwxPgi2JIHP_wlL0K8yDy3pZHz-V2eaPyvtH90hZFeAC5-vCIJha4AYlboruKYvaqzqM5vDl5MNHOoMItDJD7urIKZazQ5KJQX08pWVg3X7gg8Vgscqfh-95xfn_TqOU1eNgyZY8P0MguuJuKy4I3TS8mHcog433SjLU7ht3c99e8xXGFejEVhdFYeAuUdhAwGMwB1S8n1cdDpAwVgUO0XfQHG-oh624ZbO_A",
+							"alt": "Studio portrait with dramatic lighting",
+							"filename": "ethereal-bond-plate-1.jpg"
+						}
+					},
+					"plate_1_caption": "Shadow Play",
+					"plate_6_title": "The Final Light"
+				}
+			},
+			{
+				"id": "skyline-serenade",
+				"slug": "skyline-serenade",
+				"status": "published",
+				"data": {
+					"title": "Skyline Serenade",
+					"category": "Weddings",
+					"description": "Full-day cinematic wedding coverage set against the cityscape. A timeless archive of celebration, architecture, and devotion.",
+					"cover_image": {
+						"$media": {
+							"url": "https://lh3.googleusercontent.com/aida/ADBb0uhiz0ExiGlCADc2aGtuOqEwXbCZvy3tggq5ckrK6xGTi-o64y7rO8bGhn72w8LBWYpJI2NJ6TiOMz3nusItXl8Y4HrsjHFMzxPZwp46x09tOV-mSapX_4V9zkyavu8fzJFlWmnplr7mFjGFJp92pQx0LtFT22P9_sUYlVh16EievvCeStC8AJyjf2SSf6nHm1munflFprwRd0M7FRxXmqyPSOa3RoObHXN4GgTcde7IwgQmF6W6cgGpOlPx2jvkX_LWZTgiFCxU4A",
+							"alt": "Skyline Serenade — cover",
+							"filename": "skyline-serenade-cover.jpg"
+						}
+					},
+					"plate_6_title": "Until the Last Light"
+				}
+			}
+		],
 		"pages": [
 			{
 				"id": "about",

@@ -1,0 +1,104 @@
+---
+---
+
+<footer class="site-footer">
+	<div class="footer-inner">
+		<div class="footer-top">
+			<div class="footer-copyright">
+				<p>© 2024 BAONGUYENSTUDIO. ALL RIGHTS RESERVED.</p>
+			</div>
+			<nav class="footer-links" aria-label="Footer navigation">
+				<a href="#" class="footer-link">Instagram</a>
+				<a href="#" class="footer-link">Vogue</a>
+				<a href="#" class="footer-link">Behance</a>
+				<a href="#" class="footer-link">Email</a>
+			</nav>
+		</div>
+	</div>
+
+	<div class="footer-wordmark" aria-hidden="true">
+		BAONGUYENSTUDIO
+	</div>
+</footer>
+
+<style>
+	.site-footer {
+		background: #0e0e0e;
+		border-top: 1px solid rgba(255, 255, 255, 0.04);
+		overflow: hidden;
+	}
+
+	.footer-inner {
+		max-width: 1536px;
+		margin: 0 auto;
+		padding: 4rem 3rem 3rem;
+	}
+
+	.footer-top {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		flex-wrap: wrap;
+		gap: 2rem;
+	}
+
+	.footer-copyright p {
+		font-family: "Manrope", sans-serif;
+		font-size: 0.625rem;
+		text-transform: uppercase;
+		letter-spacing: 0.15em;
+		color: rgba(255, 255, 255, 0.25);
+		margin: 0;
+	}
+
+	.footer-links {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 2rem;
+	}
+
+	.footer-link {
+		font-family: "Manrope", sans-serif;
+		font-size: 0.625rem;
+		text-transform: uppercase;
+		letter-spacing: 0.15em;
+		color: rgba(255, 255, 255, 0.25);
+		text-decoration: none;
+		transition: color 0.4s ease;
+	}
+
+	.footer-link:hover {
+		color: #ffffff;
+	}
+
+	.footer-wordmark {
+		padding: 0 3rem 2rem;
+		font-family: "Newsreader", serif;
+		font-weight: 900;
+		font-size: clamp(3rem, 10vw, 9rem);
+		letter-spacing: -0.02em;
+		color: rgba(53, 53, 53, 0.35);
+		user-select: none;
+		line-height: 1;
+	}
+
+	@media (max-width: 640px) {
+		.footer-inner {
+			padding: 3rem 1.5rem 2rem;
+		}
+
+		.footer-top {
+			flex-direction: column-reverse;
+			align-items: flex-start;
+			gap: 1.5rem;
+		}
+
+		.footer-links {
+			gap: 1.5rem;
+		}
+
+		.footer-wordmark {
+			padding: 0 1.5rem 1.5rem;
+		}
+	}
+</style>

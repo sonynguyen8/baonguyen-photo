@@ -1,448 +1,561 @@
 ---
-import { getEmDashCollection, getEntryTerms } from "emdash";
-import { Image } from "emdash/ui";
 import Base from "../layouts/Base.astro";
-import PostCard from "../components/PostCard.astro";
-import { getReadingTime } from "../utils/reading-time";
-
-const { entries: posts, cacheHint } = await getEmDashCollection("posts");
-
-Astro.cache.set(cacheHint);
-
-const sortedPosts = posts.toSorted((a, b) => {
-	const dateA = a.data.publishedAt?.getTime() ?? 0;
-	const dateB = b.data.publishedAt?.getTime() ?? 0;
-	return dateB - dateA;
-});
-
-// Find the first post with a featured image for the hero
-const featuredPost = sortedPosts.find((p) => p.data.featured_image);
-const featuredIndex = featuredPost ? sortedPosts.indexOf(featuredPost) : -1;
-
-// Get remaining posts (exclude featured if found, limit to 6 for grid)
-const gridPosts = sortedPosts.filter((_, i) => i !== featuredIndex).slice(0, 6);
-
-// Total posts shown = featured (if any) + grid posts
-const totalShown = (featuredPost ? 1 : 0) + gridPosts.length;
-const hasMorePosts = sortedPosts.length > totalShown;
-
-// Fetch tags for featured post (bylines are already hydrated by getEmDashCollection)
-let featuredTags: Array<{ slug: string; label: string }> = [];
-const featuredBylines = featuredPost?.data.bylines ?? [];
-if (featuredPost) {
-	const tags = await getEntryTerms("posts", featuredPost.data.id, "tag");
-	featuredTags = tags.map((t) => ({ slug: t.slug, label: t.label }));
-}
-
-// Fetch tags for grid posts (bylines are already hydrated by getEmDashCollection)
-const gridPostsWithTags = await Promise.all(
-	gridPosts.map(async (post) => {
-		const tags = await getEntryTerms("posts", post.data.id, "tag");
-		const bylines = post.data.bylines ?? [];
-		return {
-			post,
-			tags: tags.map((t) => ({ slug: t.slug, label: t.label })),
-			bylines,
-		};
-	})
-);
-
-// Format date helper
-function formatDate(date: Date | null | undefined) {
-	if (!date) return null;
-	return date.toLocaleDateString("en-US", {
-		year: "numeric",
-		month: "long",
-		day: "numeric",
-	});
-}
 ---
 
-<Base title="My Blog" description="Welcome to my blog">
-	{
-		posts.length === 0 ? (
-			<section class="empty-state">
-				<h2>No posts yet</h2>
-				<p>Create your first post in the admin panel.</p>
-				<a href="/_emdash/admin/content/posts/new" class="btn">
-					Create a post
-				</a>
-			</section>
-		) : (
-			<div class="home-content">
-				{/* Featured Post - Side by side */}
-				{featuredPost && (
-					<section class="featured-section">
-						<div class="featured-grid">
-							<a href={`/posts/${featuredPost.id}`} class="featured-image-link">
-								<div class="featured-image">
-									<Image image={featuredPost.data.featured_image} />
-								</div>
-							</a>
-							<div class="featured-content">
-								<div class="featured-meta">
-									{featuredBylines.length > 0 && (
-										<>
-											<div class="featured-bylines">
-												{featuredBylines.slice(0, 2).map((credit, index) => (
-													<>
-														{index > 0 && <span class="byline-sep">,</span>}
-														<span class="featured-byline">
-															{credit.byline.avatarMediaId && (
-																<img
-																	src={`/_emdash/api/media/file/${credit.byline.avatarMediaId}`}
-																	alt={credit.byline.displayName}
-																	class="featured-byline-avatar"
-																/>
-															)}
-															<span class="featured-byline-name">
-																{credit.byline.displayName}
-															</span>
-														</span>
-													</>
-												))}
-												{featuredBylines.length > 2 && (
-													<span class="byline-more">
-														+{featuredBylines.length - 2}
-													</span>
-												)}
-											</div>
-											<span class="meta-dot" />
-										</>
-									)}
-									{formatDate(featuredPost.data.publishedAt) && (
-										<time>{formatDate(featuredPost.data.publishedAt)}</time>
-									)}
-									<span class="meta-dot" />
-									<span>
-										{getReadingTime(featuredPost.data.content)} min read
-									</span>
-								</div>
-								<a
-									href={`/posts/${featuredPost.id}`}
-									class="featured-title-link"
-								>
-									<h1 class="featured-title">{featuredPost.data.title}</h1>
-								</a>
-								{featuredPost.data.excerpt && (
-									<p class="featured-excerpt">{featuredPost.data.excerpt}</p>
-								)}
-								{featuredTags.length > 0 && (
-									<div class="featured-tags">
-										{featuredTags.map((tag) => (
-											<a href={`/tag/${tag.slug}`} class="featured-tag">
-												{tag.label}
-											</a>
-										))}
-									</div>
-								)}
-							</div>
-						</div>
-					</section>
-				)}
+<Base title="Bao Nguyen Studio" description="Cinematic noir photography — preserving the silent poetry of your most intimate moments.">
 
-				{/* Latest Posts */}
-				{gridPostsWithTags.length > 0 && (
-					<section class="posts-section">
-						<header class="section-header">
-							<h2 class="section-title">Latest</h2>
-							{hasMorePosts && (
-								<a href="/posts" class="section-link">
-									View all
-								</a>
-							)}
-						</header>
-						<div class="posts-grid">
-							{gridPostsWithTags.map(({ post, tags, bylines }) => (
-								<PostCard
-									title={post.data.title ?? "Untitled"}
-									excerpt={post.data.excerpt}
-									featuredImage={post.data.featured_image}
-									href={`/posts/${post.id}`}
-									date={post.data.publishedAt ?? undefined}
-									readingTime={getReadingTime(post.data.content)}
-									tags={tags}
-									bylines={bylines}
-								/>
-							))}
-						</div>
-					</section>
-				)}
+	<!-- ─── Hero ─────────────────────────────────────────── -->
+	<section class="hero">
+		<div class="hero-bg">
+			<img
+				src="/images/home/hero-banner.jpg"
+				alt="Couple standing by the river with Ho Chi Minh City skyline"
+				class="hero-img"
+			/>
+		</div>
+		<div class="hero-content">
+			<h1 class="hero-title">
+				Preserving the silent poetry of your most intimate moments.
+			</h1>
+			<p class="hero-sub">Cinematic Noir Photography</p>
+		</div>
+		<div class="hero-scrubber-deco" aria-hidden="true"></div>
+	</section>
+
+	<!-- ─── About ────────────────────────────────────────── -->
+	<section class="about">
+		<div class="about-inner">
+			<div class="about-image-col">
+				<div class="about-image-wrap">
+					<img
+						src="/images/home/photo-profile.jpg"
+						alt="Portrait of Bao Nguyen"
+						class="about-img"
+					/>
+				</div>
+				<p class="about-caption">The Artist · 2024</p>
 			</div>
-		)
-	}
+
+			<div class="about-text-col">
+				<span class="about-eyebrow">A Note from Bao</span>
+				<h2 class="about-heading">
+					I don't just capture images. I document the atmosphere of existence.
+				</h2>
+				<div class="about-body">
+					<p>
+						My approach is rooted in the philosophy of the cinematic
+						negative—finding beauty in the shadows, and depth in the unspoken.
+						Based in the heart of the city, I travel worldwide to capture love
+						in its rawest, most unposed form.
+					</p>
+					<p>
+						Every frame is a curated memory, treated with the same reverence as
+						a piece of gallery art. We aren't just making photos; we are
+						building your legacy.
+					</p>
+				</div>
+				<a href="/about" class="about-cta">
+					<span>Read the Manifesto</span>
+					<span class="material-symbols-outlined about-cta-arrow">arrow_forward</span>
+				</a>
+			</div>
+		</div>
+	</section>
+
+	<!-- ─── Services ─────────────────────────────────────── -->
+	<section class="services">
+		<div class="services-inner">
+			<div class="services-header">
+				<h2 class="services-heading">What I Do</h2>
+				<p class="services-sub">Tailored Editorial Experiences</p>
+			</div>
+
+			<div class="services-grid">
+				<!-- Portraits -->
+				<article class="service-card">
+					<div class="service-img-wrap">
+						<img
+							src="/images/home/what-i-do-3.jpg"
+							alt="Bride in garden with flowers"
+							class="service-img"
+						/>
+					</div>
+					<h3 class="service-title">Portraits</h3>
+					<p class="service-desc">
+						Personal legacies captured with an editorial lens. Focused on
+						identity and the quiet power of the individual.
+					</p>
+					<span class="service-label">01 / Fine Art</span>
+				</article>
+
+				<!-- Love Stories -->
+				<article class="service-card">
+					<div class="service-img-wrap">
+						<img
+							src="/images/home/what-i-do-1.jpg"
+							alt="Couple sharing an intimate moment by a garden pond"
+							class="service-img"
+						/>
+					</div>
+					<h3 class="service-title">Love Stories</h3>
+					<p class="service-desc">
+						Unscripted moments between two souls. We document the chemistry
+						that words cannot define.
+					</p>
+					<span class="service-label">02 / Narrative</span>
+				</article>
+
+				<!-- Weddings -->
+				<article class="service-card">
+					<div class="service-img-wrap">
+						<img
+							src="/images/home/what-i-do-2.jpg"
+							alt="Bride and groom embracing in a grand hall"
+							class="service-img"
+						/>
+					</div>
+					<h3 class="service-title">Weddings</h3>
+					<p class="service-desc">
+						Full-day cinematic coverage. A timeless visual archive of your most
+						significant celebration.
+					</p>
+					<span class="service-label">03 / Archive</span>
+				</article>
+			</div>
+		</div>
+	</section>
+
+	<!-- ─── CTA ──────────────────────────────────────────── -->
+	<section class="cta">
+		<div class="cta-bg">
+			<img
+				src="/images/home/let-document-your-story.jpg"
+				alt="Behind the scenes — photographer directing a couple with veil"
+				class="cta-img"
+			/>
+		</div>
+		<div class="cta-content">
+			<h2 class="cta-heading">Let's document your story.</h2>
+			<div class="cta-actions">
+				<a href="/contact" class="btn-primary">Book a Consultation</a>
+				<a href="/portfolio" class="btn-secondary">View Galleries</a>
+			</div>
+		</div>
+	</section>
+
 </Base>
 
 <style>
-	.home-content {
-		max-width: var(--wide-width);
+	/* ─── Hero ─────────────────────────────────────────── */
+	.hero {
+		position: relative;
+		height: 100svh;
+		min-height: 600px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		overflow: hidden;
+	}
+
+	.hero-bg {
+		position: absolute;
+		inset: 0;
+		z-index: 0;
+	}
+
+	.hero-img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		filter: grayscale(1) brightness(0.45);
+	}
+
+	.hero-content {
+		position: relative;
+		z-index: 1;
+		text-align: center;
+		padding: 0 1.5rem;
+		max-width: 72rem;
+	}
+
+	.hero-title {
+		font-family: var(--font-headline);
+		font-style: italic;
+		font-weight: 200;
+		font-size: clamp(2rem, 6vw, 5rem);
+		line-height: 1.1;
+		letter-spacing: -0.02em;
+		color: #ffffff;
+	}
+
+	.hero-sub {
+		font-family: var(--font-body);
+		font-size: 0.7rem;
+		text-transform: uppercase;
+		letter-spacing: 0.4em;
+		color: rgba(255, 255, 255, 0.5);
+		margin-top: 2rem;
+	}
+
+	/* Decorative 1px line — bottom left */
+	.hero-scrubber-deco {
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		width: 33%;
+		height: 1px;
+		background: #ffffff;
+		z-index: 1;
+	}
+
+	/* ─── About ────────────────────────────────────────── */
+	.about {
+		background: var(--color-surface);
+		padding: 6rem 3rem;
+	}
+
+	.about-inner {
+		max-width: var(--max-width);
 		margin: 0 auto;
-		padding: var(--spacing-16) var(--spacing-6);
-	}
-
-	/* Featured Section - Side by side */
-	.featured-section {
-		margin-bottom: var(--spacing-16);
-	}
-
-	.featured-grid {
 		display: grid;
-		grid-template-columns: repeat(3, 1fr);
-		gap: var(--spacing-8);
+		grid-template-columns: 5fr 7fr;
+		gap: 6rem;
 		align-items: center;
 	}
 
-	.featured-image-link {
-		grid-column: 1 / 3;
-		display: block;
-		/* Extend to viewport edge, but cap at -6rem minimum extension */
-		margin-left: min(
-			-6rem,
-			calc(-1 * (var(--spacing-6) + (100vw - var(--wide-width)) / 2))
-		);
-	}
-
-	.featured-image {
+	.about-image-wrap {
+		aspect-ratio: 3 / 4;
 		overflow: hidden;
-		border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
-		background: var(--color-surface);
 	}
 
-	.featured-image img {
+	.about-img {
 		width: 100%;
-		height: auto;
-		aspect-ratio: 4 / 3;
+		height: 100%;
 		object-fit: cover;
+	}
+
+	.about-caption {
+		font-family: var(--font-body);
+		font-size: 0.625rem;
+		text-transform: uppercase;
+		letter-spacing: 0.15em;
+		color: var(--color-outline);
+		margin-top: 1rem;
+		text-align: right;
+	}
+
+	.about-text-col {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+	}
+
+	.about-eyebrow {
+		font-family: var(--font-body);
+		font-size: 0.7rem;
+		text-transform: uppercase;
+		letter-spacing: 0.3em;
+		color: var(--color-outline);
+		margin-bottom: 2rem;
+	}
+
+	.about-heading {
+		font-family: var(--font-headline);
+		font-style: italic;
+		font-weight: 400;
+		font-size: clamp(1.75rem, 3.5vw, 3.5rem);
+		line-height: 1.1;
+		color: var(--color-on-surface);
+		margin-bottom: 3rem;
+	}
+
+	.about-body {
+		max-width: 50ch;
+		display: flex;
+		flex-direction: column;
+		gap: 1.5rem;
+	}
+
+	.about-body p {
+		font-family: var(--font-body);
+		font-size: 1.1rem;
+		font-weight: 300;
+		line-height: 1.75;
+		color: var(--color-on-surface-variant);
+	}
+
+	.about-cta {
+		display: inline-flex;
+		align-items: center;
+		gap: 1rem;
+		margin-top: 4rem;
+		padding-bottom: 0.5rem;
+		border-bottom: 1px solid rgba(71, 71, 71, 1);
+		font-family: var(--font-body);
+		font-size: 0.7rem;
+		text-transform: uppercase;
+		letter-spacing: 0.12em;
+		color: var(--color-on-surface);
+		transition: border-color 0.4s ease;
+		text-decoration: none;
+	}
+
+	.about-cta:hover {
+		border-color: var(--color-primary);
+	}
+
+	.about-cta-arrow {
+		font-size: 1rem;
 		transition: transform 0.4s ease;
 	}
 
-	.featured-image-link:hover .featured-image img,
-	.featured-grid:has(.featured-title-link:hover) .featured-image img {
-		transform: scale(1.02);
+	.about-cta:hover .about-cta-arrow {
+		transform: translateX(0.4rem);
 	}
 
-	.featured-content {
-		display: flex;
-		flex-direction: column;
-		gap: var(--spacing-4);
+	/* ─── Services ─────────────────────────────────────── */
+	.services {
+		background: var(--color-surface-container-low);
+		padding: 6rem 3rem;
 	}
 
-	.featured-meta {
-		display: flex;
-		align-items: center;
-		flex-wrap: wrap;
-		column-gap: var(--spacing-3);
-		row-gap: var(--spacing-1);
-		font-size: var(--font-size-sm);
-		color: var(--color-muted);
-	}
-
-	.meta-dot {
-		width: 3px;
-		height: 3px;
-		border-radius: 50%;
-		background: var(--color-muted);
-	}
-
-	/* Featured bylines */
-	.featured-bylines {
-		display: flex;
-		align-items: center;
-		gap: 2px;
-	}
-
-	.featured-byline {
-		display: inline-flex;
-		align-items: center;
-		gap: var(--spacing-2);
-	}
-
-	.featured-byline-avatar {
-		width: var(--avatar-size-md);
-		height: var(--avatar-size-md);
-		border-radius: 50%;
-		object-fit: cover;
-	}
-
-	.featured-byline-name {
-		font-weight: 500;
-		color: var(--color-text-secondary);
-	}
-
-	.byline-sep {
-		color: var(--color-muted);
-		margin-right: 2px;
-	}
-
-	.byline-more {
-		font-size: var(--font-size-xs);
-		color: var(--color-muted);
-		margin-left: 2px;
-	}
-
-	.featured-title-link {
-		text-decoration: none;
-		color: inherit;
-	}
-
-	.featured-title {
-		font-size: clamp(var(--font-size-2xl), 4vw, var(--font-size-4xl));
-		font-weight: 700;
-		line-height: var(--leading-tight);
-		letter-spacing: var(--tracking-tight);
-		transition: color var(--transition-fast);
-	}
-
-	.featured-title-link:hover .featured-title,
-	.featured-grid:has(.featured-image-link:hover) .featured-title {
-		color: var(--color-accent);
-	}
-
-	.featured-excerpt {
-		font-size: var(--font-size-lg);
-		line-height: var(--leading-relaxed);
-		color: var(--color-text-secondary);
-	}
-
-	.featured-tags {
-		display: flex;
-		flex-wrap: wrap;
-		gap: var(--spacing-2);
-		margin-top: var(--spacing-2);
-	}
-
-	.featured-tag {
-		display: inline-block;
-		padding: var(--spacing-1) var(--spacing-3);
-		font-size: var(--font-size-sm);
-		color: var(--color-text-secondary);
-		background: var(--color-surface);
-		border-radius: var(--radius);
-		text-decoration: none;
-		transition:
-			color var(--transition-fast),
-			background var(--transition-fast);
-	}
-
-	.featured-tag:hover {
-		color: var(--color-text);
-		background: var(--color-border);
-	}
-
-	/* Section header */
-	.section-header {
-		display: flex;
-		justify-content: space-between;
-		align-items: baseline;
-		margin-bottom: var(--spacing-8);
-		padding-bottom: var(--spacing-4);
-		border-bottom: 1px solid var(--color-border-subtle);
-	}
-
-	.section-title {
-		font-size: var(--font-size-sm);
-		font-weight: 500;
-		text-transform: uppercase;
-		letter-spacing: var(--tracking-wider);
-		color: var(--color-muted);
-	}
-
-	.section-link {
-		font-size: var(--font-size-sm);
-		color: var(--color-accent);
-		text-decoration: none;
-		transition: color var(--transition-fast);
-	}
-
-	.section-link:hover {
-		color: var(--color-accent-hover);
-	}
-
-	/* Posts Grid */
-	.posts-section {
-	}
-
-	.posts-grid {
-		display: grid;
-		grid-template-columns: repeat(3, 1fr);
-		gap: var(--spacing-12) var(--spacing-8);
-	}
-
-	/* Empty State */
-	.empty-state {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		gap: var(--spacing-3);
-		text-align: center;
-		padding: var(--spacing-20) var(--spacing-6);
-		max-width: 400px;
+	.services-inner {
+		max-width: var(--max-width);
 		margin: 0 auto;
 	}
 
-	.empty-state h2 {
-		font-size: var(--font-size-2xl);
-		font-weight: 600;
+	.services-header {
+		display: flex;
+		justify-content: space-between;
+		align-items: baseline;
+		margin-bottom: 6rem;
+		flex-wrap: wrap;
+		gap: 1rem;
 	}
 
-	.empty-state p {
-		color: var(--color-muted);
+	.services-heading {
+		font-family: var(--font-headline);
+		font-style: italic;
+		font-weight: 300;
+		font-size: clamp(2.5rem, 5vw, 4.5rem);
+		color: #ffffff;
+		line-height: 1;
 	}
 
-	.btn {
+	.services-sub {
+		font-family: var(--font-body);
+		font-size: 0.65rem;
+		text-transform: uppercase;
+		letter-spacing: 0.2em;
+		color: var(--color-outline);
+	}
+
+	.services-grid {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 1px;
+		background: rgba(71, 71, 71, 0.15);
+	}
+
+	.service-card {
+		background: var(--color-surface);
+		padding: 3rem;
+		cursor: pointer;
+		transition: background 0.5s ease;
+	}
+
+	.service-card:hover {
+		background: var(--color-surface-container-high);
+	}
+
+	.service-img-wrap {
+		aspect-ratio: 4 / 5;
+		overflow: hidden;
+		margin-bottom: 2rem;
+	}
+
+	.service-img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		filter: grayscale(1);
+		transition: transform 0.7s ease;
+	}
+
+	.service-card:hover .service-img {
+		transform: scale(1.05);
+	}
+
+	.service-title {
+		font-family: var(--font-headline);
+		font-style: italic;
+		font-weight: 400;
+		font-size: 1.875rem;
+		color: var(--color-on-surface);
+		margin-bottom: 1rem;
+	}
+
+	.service-desc {
+		font-family: var(--font-body);
+		font-size: 0.875rem;
+		line-height: 1.65;
+		color: var(--color-on-surface-variant);
+		margin-bottom: 2rem;
+	}
+
+	.service-label {
+		font-family: var(--font-body);
+		font-size: 0.625rem;
+		text-transform: uppercase;
+		letter-spacing: 0.18em;
+		color: var(--color-outline);
+		transition: color 0.3s ease;
+	}
+
+	.service-card:hover .service-label {
+		color: #ffffff;
+	}
+
+	/* ─── CTA ──────────────────────────────────────────── */
+	.cta {
+		position: relative;
+		min-height: 820px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		overflow: hidden;
+	}
+
+	.cta-bg {
+		position: absolute;
+		inset: 0;
+		z-index: 0;
+	}
+
+	.cta-img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		filter: brightness(0.55);
+	}
+
+	.cta-content {
+		position: relative;
+		z-index: 1;
+		text-align: center;
+		padding: 0 1.5rem;
+		max-width: 56rem;
+	}
+
+	.cta-heading {
+		font-family: var(--font-headline);
+		font-style: italic;
+		font-weight: 300;
+		font-size: clamp(2.5rem, 7vw, 5.5rem);
+		line-height: 1.05;
+		color: #ffffff;
+		margin-bottom: 3rem;
+	}
+
+	.cta-actions {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 1.5rem;
+		justify-content: center;
+		align-items: center;
+	}
+
+	.btn-primary {
 		display: inline-block;
-		margin-top: var(--spacing-4);
-		padding: var(--spacing-3) var(--spacing-6);
-		background: var(--color-accent);
-		color: var(--color-on-accent);
-		text-decoration: none;
-		border-radius: var(--radius);
-		font-size: var(--font-size-sm);
+		background: #ffffff;
+		color: #1a1c1c;
+		padding: 1.25rem 2.5rem;
+		font-family: var(--font-body);
+		font-size: 0.65rem;
+		text-transform: uppercase;
+		letter-spacing: 0.18em;
 		font-weight: 500;
-		transition: background var(--transition-fast);
+		transition: background 0.4s ease, color 0.4s ease;
+		text-decoration: none;
 	}
 
-	.btn:hover {
-		background: var(--color-accent-hover);
+	.btn-primary:hover {
+		background: var(--color-on-surface);
+		color: var(--color-surface);
 	}
 
-	/* Responsive */
-	@media (max-width: 900px) {
-		.home-content {
-			padding: var(--spacing-6) var(--spacing-4) var(--spacing-12);
+	.btn-secondary {
+		display: inline-block;
+		border: 1px solid rgba(255, 255, 255, 0.2);
+		color: #ffffff;
+		padding: 1.25rem 2.5rem;
+		font-family: var(--font-body);
+		font-size: 0.65rem;
+		text-transform: uppercase;
+		letter-spacing: 0.18em;
+		font-weight: 500;
+		transition: border-color 0.4s ease;
+		text-decoration: none;
+	}
+
+	.btn-secondary:hover {
+		border-color: #ffffff;
+	}
+
+	/* ─── Responsive ───────────────────────────────────── */
+	@media (max-width: 1024px) {
+		.about {
+			padding: 5rem 2rem;
 		}
 
-		.featured-image-link {
-			margin-left: 0;
+		.about-inner {
+			grid-template-columns: 1fr 1fr;
+			gap: 4rem;
 		}
 
-		.featured-grid {
+		.services {
+			padding: 5rem 2rem;
+		}
+
+		.service-card {
+			padding: 2rem;
+		}
+	}
+
+	@media (max-width: 768px) {
+		.about-inner {
 			grid-template-columns: 1fr;
-			gap: var(--spacing-6);
+			gap: 3rem;
 		}
 
-		.featured-image {
-			border-radius: var(--radius-lg);
+		.about-image-wrap {
+			aspect-ratio: 4 / 3;
 		}
 
-		.featured-image img {
-			aspect-ratio: 16 / 9;
+		.services-grid {
+			grid-template-columns: 1fr;
 		}
 
-		.posts-grid {
-			grid-template-columns: repeat(2, 1fr);
-			gap: var(--spacing-8) var(--spacing-6);
+		.services-header {
+			margin-bottom: 3rem;
 		}
 	}
 
-	@media (max-width: 600px) {
-		.featured-title {
-			font-size: var(--font-size-2xl);
+	@media (max-width: 480px) {
+		.about,
+		.services {
+			padding: 4rem 1.5rem;
 		}
 
-		.posts-grid {
-			grid-template-columns: 1fr;
-			gap: var(--spacing-8);
+		.cta-actions {
+			flex-direction: column;
+			width: 100%;
+		}
+
+		.btn-primary,
+		.btn-secondary {
+			width: 100%;
+			text-align: center;
 		}
 	}
 </style>
