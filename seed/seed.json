@@ -211,8 +211,7 @@
 			"label": "Primary Navigation",
 			"items": [
 				{ "type": "custom", "label": "Home", "url": "/" },
-				{ "type": "custom", "label": "Portfolio", "url": "/portfolio" },
-				{ "type": "custom", "label": "About", "url": "/pages/about" },
+				{ "type": "custom", "label": "Portfolios", "url": "/portfolios" },
 				{ "type": "custom", "label": "Contact", "url": "/contact" }
 			]
 		}

@@ -1,0 +1,399 @@
+---
+import Base from "../layouts/Base.astro";
+---
+
+<Base title="Contact" description="Reach out to discuss your next project or book a session with Bao Nguyen Studio.">
+	<div class="contact-wrapper">
+		<div class="contact-grid">
+
+			<!-- Left Column -->
+			<div class="left-col">
+				<header class="left-header">
+					<h1 class="headline">Let's Tell<br/>Your Story</h1>
+					<p class="subhead">Reach out to discuss your next project or book a session.</p>
+				</header>
+
+				<div class="hero-image-wrap">
+					<img
+						src="/images/contact.jpg"
+						alt="Studio Portrait"
+						class="hero-image"
+					/>
+					<span class="hero-caption">Studio Wedding, 2024</span>
+				</div>
+
+				<div class="call-section">
+					<p class="call-label">Direct Assistance</p>
+					<a href="tel:+84941718888" class="call-block">
+						<span class="call-text">Call Us: +84 941 718 888</span>
+						<div class="call-hover-fill"></div>
+					</a>
+				</div>
+			</div>
+
+			<!-- Right Column: Form -->
+			<div class="right-col">
+				<form class="contact-form" method="POST" action="#">
+					<div class="field">
+						<label class="field-label">Name</label>
+						<input class="field-input" type="text" placeholder="Full Name" required />
+					</div>
+
+					<div class="field">
+						<label class="field-label">Service</label>
+						<select class="field-input field-select">
+							<option>Portraits</option>
+							<option>Weddings</option>
+							<option>Love Stories</option>
+							<option>Commercial Editorial</option>
+						</select>
+					</div>
+
+					<div class="field-row">
+						<div class="field">
+							<label class="field-label">Phone</label>
+							<input class="field-input" type="tel" placeholder="+00 000 000 000" />
+						</div>
+						<div class="field">
+							<label class="field-label">Email</label>
+							<input class="field-input" type="email" placeholder="hello@example.com" required />
+						</div>
+					</div>
+
+					<div class="field">
+						<label class="field-label">Message (Optional)</label>
+						<textarea class="field-input field-textarea" placeholder="Briefly describe your vision..." rows="4"></textarea>
+					</div>
+
+					<div class="form-submit">
+						<button type="submit" class="submit-btn">
+							<span class="submit-text">Send Inquiry</span>
+							<div class="submit-hover-fill"></div>
+						</button>
+					</div>
+				</form>
+
+				<div class="meta-grid">
+					<div class="meta-item">
+						<h4 class="meta-label">Location</h4>
+						<p class="meta-value">Studio B-04, Creative Quarter<br/>Ho Chi Minh City, VN</p>
+					</div>
+					<div class="meta-item">
+						<h4 class="meta-label">Availability</h4>
+						<p class="meta-value">Booking for Q3/Q4 2025<br/>Mon — Fri, 10:00 — 18:00</p>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</Base>
+
+<style>
+	.contact-wrapper {
+		min-height: 100vh;
+		padding-top: 8rem;
+		padding-bottom: 6rem;
+	}
+
+	.contact-grid {
+		max-width: 1536px;
+		margin: 0 auto;
+		padding: 0 3rem;
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 6rem;
+		align-items: start;
+	}
+
+	/* ── Left Column ─────────────────────── */
+	.left-col {
+		display: flex;
+		flex-direction: column;
+		gap: 4rem;
+		position: sticky;
+		top: 6rem;
+	}
+
+	.headline {
+		font-family: "Newsreader", serif;
+		font-style: italic;
+		font-size: clamp(3.5rem, 7vw, 6rem);
+		font-weight: 300;
+		line-height: 0.92;
+		letter-spacing: -0.02em;
+		color: #ffffff;
+		margin: 0;
+	}
+
+	.subhead {
+		margin-top: 2rem;
+		font-family: "Manrope", sans-serif;
+		font-weight: 300;
+		font-size: 1.1rem;
+		line-height: 1.7;
+		color: rgba(255, 255, 255, 0.45);
+		max-width: 26rem;
+	}
+
+	.hero-image-wrap {
+		position: relative;
+		aspect-ratio: 4 / 5;
+		width: 100%;
+		overflow: hidden;
+	}
+
+	.hero-image {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		filter: grayscale(1) contrast(1.2) brightness(0.75);
+		display: block;
+	}
+
+	.hero-caption {
+		position: absolute;
+		bottom: 1rem;
+		right: 1rem;
+		font-family: "Manrope", sans-serif;
+		font-size: 0.625rem;
+		letter-spacing: 0.2em;
+		text-transform: uppercase;
+		color: rgba(255, 255, 255, 0.4);
+	}
+
+	.call-section {
+		padding-top: 3rem;
+		border-top: 1px solid rgba(255, 255, 255, 0.05);
+		display: flex;
+		flex-direction: column;
+		gap: 1.25rem;
+	}
+
+	.call-label {
+		font-family: "Manrope", sans-serif;
+		font-size: 0.625rem;
+		letter-spacing: 0.2em;
+		text-transform: uppercase;
+		color: rgba(255, 255, 255, 0.35);
+		margin: 0;
+	}
+
+	.call-block {
+		position: relative;
+		display: block;
+		width: 100%;
+		padding: 1.25rem 3rem;
+		background: #ffffff;
+		color: #131313;
+		font-family: "Manrope", sans-serif;
+		font-size: 0.7rem;
+		font-weight: 700;
+		letter-spacing: 0.3em;
+		text-transform: uppercase;
+		text-decoration: none;
+		text-align: center;
+		overflow: hidden;
+		transition: color 0.4s ease;
+	}
+
+	.call-text {
+		position: relative;
+		z-index: 1;
+	}
+
+	.call-hover-fill {
+		position: absolute;
+		inset: 0;
+		background: #d4d4d4;
+		transform: translateY(100%);
+		transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+	}
+
+	.call-block:hover .call-hover-fill {
+		transform: translateY(0);
+	}
+
+	/* ── Right Column ────────────────────── */
+	.right-col {
+		background: #0e0e0e;
+		padding: 4rem;
+		margin-top: 6rem;
+	}
+
+	.contact-form {
+		display: flex;
+		flex-direction: column;
+		gap: 3rem;
+	}
+
+	.field {
+		display: flex;
+		flex-direction: column;
+		gap: 0.5rem;
+	}
+
+	.field-label {
+		font-family: "Manrope", sans-serif;
+		font-size: 0.625rem;
+		letter-spacing: 0.2em;
+		text-transform: uppercase;
+		color: rgba(255, 255, 255, 0.35);
+	}
+
+	.field-input {
+		width: 100%;
+		background: transparent;
+		border: none;
+		border-bottom: 1px solid rgba(71, 71, 71, 0.8);
+		padding: 1rem 0;
+		color: #ffffff;
+		font-family: "Manrope", sans-serif;
+		font-size: 0.95rem;
+		transition: border-color 0.3s ease;
+		appearance: none;
+		-webkit-appearance: none;
+	}
+
+	.field-input::placeholder {
+		color: rgba(255, 255, 255, 0.2);
+	}
+
+	.field-input:focus {
+		outline: none;
+		border-bottom-color: #ffffff;
+	}
+
+	.field-select {
+		cursor: pointer;
+		background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23919191' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+		background-repeat: no-repeat;
+		background-position: right 0 center;
+		padding-right: 1.5rem;
+	}
+
+	.field-select option {
+		background: #131313;
+		color: #e2e2e2;
+	}
+
+	.field-textarea {
+		resize: none;
+	}
+
+	.field-row {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 3rem;
+	}
+
+	.form-submit {
+		padding-top: 2rem;
+	}
+
+	.submit-btn {
+		position: relative;
+		padding: 1.25rem 4rem;
+		background: #ffffff;
+		color: #131313;
+		font-family: "Manrope", sans-serif;
+		font-size: 0.7rem;
+		font-weight: 700;
+		letter-spacing: 0.3em;
+		text-transform: uppercase;
+		border: none;
+		cursor: pointer;
+		overflow: hidden;
+		transition: color 0.4s ease;
+		width: 100%;
+	}
+
+	.submit-text {
+		position: relative;
+		z-index: 1;
+	}
+
+	.submit-hover-fill {
+		position: absolute;
+		inset: 0;
+		background: #d4d4d4;
+		transform: translateY(100%);
+		transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+	}
+
+	.submit-btn:hover .submit-hover-fill {
+		transform: translateY(0);
+	}
+
+	.meta-grid {
+		margin-top: 6rem;
+		padding-top: 3rem;
+		border-top: 1px solid rgba(255, 255, 255, 0.05);
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 2rem;
+	}
+
+	.meta-label {
+		font-family: "Manrope", sans-serif;
+		font-size: 0.625rem;
+		letter-spacing: 0.2em;
+		text-transform: uppercase;
+		color: rgba(255, 255, 255, 0.35);
+		margin: 0 0 1rem;
+	}
+
+	.meta-value {
+		font-family: "Manrope", sans-serif;
+		font-size: 0.875rem;
+		line-height: 1.7;
+		color: rgba(255, 255, 255, 0.7);
+		margin: 0;
+	}
+
+	/* ── Mobile ──────────────────────────── */
+	@media (max-width: 1024px) {
+		.contact-grid {
+			grid-template-columns: 1fr;
+			gap: 4rem;
+		}
+
+		.left-col {
+			position: static;
+		}
+
+		.right-col {
+			margin-top: 0;
+		}
+	}
+
+	@media (max-width: 768px) {
+		.contact-wrapper {
+			padding-top: 6rem;
+			padding-bottom: 4rem;
+		}
+
+		.contact-grid {
+			padding: 0 1.5rem;
+			gap: 3rem;
+		}
+
+		.right-col {
+			padding: 2rem 1.5rem;
+		}
+
+		.field-row {
+			grid-template-columns: 1fr;
+			gap: 2rem;
+		}
+
+		.submit-btn {
+			width: 100%;
+		}
+
+		.meta-grid {
+			grid-template-columns: 1fr;
+			gap: 2rem;
+		}
+	}
+</style>

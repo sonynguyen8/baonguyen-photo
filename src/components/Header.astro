@@ -1,22 +1,26 @@
 ---
-import { getMenu } from "emdash";
-
-const menu = await getMenu("primary");
 const isLoggedIn = !!Astro.locals.user;
 
-const navLinks = menu?.items ?? [];
+const navLinks = [
+	{ label: "Home", url: "/" },
+	{ label: "Portfolios", url: "/portfolios" },
+	{ label: "Services", url: "/services" },
+	{ label: "Contact", url: "/contact" },
+];
+
 const currentPath = Astro.url.pathname;
 ---
 
 <nav id="site-nav" class="site-nav">
+	<!-- Left: Logo -->
 	<a href="/" class="nav-logo">BAONGUYENSTUDIO</a>
 
-	<div class="nav-links" id="nav-links">
+	<!-- Center: Nav links (desktop only) -->
+	<div class="nav-links">
 		{
 			navLinks.map((item) => (
 				<a
 					href={item.url}
-					target={item.target}
 					class:list={["nav-link", { active: currentPath === item.url }]}
 				>
 					{item.label}
@@ -32,19 +36,24 @@ const currentPath = Astro.url.pathname;
 		}
 	</div>
 
-	<button class="nav-menu-btn" id="nav-menu-btn" aria-label="Open menu" aria-expanded="false">
-		<span class="material-symbols-outlined" id="menu-icon">menu</span>
-	</button>
+	<!-- Right: Call btn (desktop) + Hamburger (mobile) -->
+	<div class="nav-actions">
+		<a href="tel:+84941718888" class="nav-call-btn">
+			Call me
+		</a>
+		<button class="nav-menu-btn" id="nav-menu-btn" aria-label="Open menu" aria-expanded="false">
+			<span class="material-symbols-outlined" id="menu-icon">menu</span>
+		</button>
+	</div>
 </nav>
 
-<!-- Mobile drawer -->
+<!-- Right sidebar drawer (mobile) -->
 <div class="nav-drawer" id="nav-drawer" aria-hidden="true">
 	<div class="nav-drawer-inner">
 		{
 			navLinks.map((item) => (
 				<a
 					href={item.url}
-					target={item.target}
 					class:list={["nav-drawer-link", { active: currentPath === item.url }]}
 				>
 					{item.label}
@@ -58,6 +67,10 @@ const currentPath = Astro.url.pathname;
 				</a>
 			)
 		}
+		<a href="tel:+84941718888" class="nav-drawer-call-btn">
+			<span class="material-symbols-outlined">call</span>
+			+84 941 718 888
+		</a>
 	</div>
 </div>
 <div class="nav-drawer-backdrop" id="nav-backdrop"></div>
@@ -93,14 +106,15 @@ const currentPath = Astro.url.pathname;
 </script>
 
 <style>
+	/* ── Nav bar ─────────────────────────── */
 	.site-nav {
 		position: fixed;
 		top: 0;
 		left: 0;
 		right: 0;
 		z-index: 50;
-		display: flex;
-		justify-content: space-between;
+		display: grid;
+		grid-template-columns: 1fr auto 1fr;
 		align-items: center;
 		padding: 1.5rem 3rem;
 		background: rgba(19, 19, 19, 0.7);
@@ -116,13 +130,15 @@ const currentPath = Astro.url.pathname;
 		color: #ffffff;
 		text-decoration: none;
 		text-transform: uppercase;
-		flex-shrink: 0;
+		justify-self: start;
 	}
 
+	/* Center: nav links */
 	.nav-links {
 		display: flex;
 		align-items: center;
 		gap: 3rem;
+		justify-self: center;
 	}
 
 	.nav-link {
@@ -135,13 +151,13 @@ const currentPath = Astro.url.pathname;
 		transition: color 0.4s ease;
 	}
 
-	.nav-link:hover,
-	.nav-link.active {
-		color: #ffffff;
+	.nav-link:hover {
+		color: rgba(255, 255, 255, 0.75);
 	}
 
 	.nav-link.active {
-		border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+		color: #ffffff;
+		border-bottom: 1px solid #ffffff;
 		padding-bottom: 2px;
 	}
 
@@ -158,6 +174,37 @@ const currentPath = Astro.url.pathname;
 		opacity: 1;
 	}
 
+	/* Right: actions */
+	.nav-actions {
+		display: flex;
+		align-items: center;
+		gap: 1rem;
+		justify-self: end;
+	}
+
+	/* Call me button */
+	.nav-call-btn {
+		display: inline-flex;
+		align-items: center;
+		font-family: "Manrope", sans-serif;
+		font-size: 0.75rem;
+		font-weight: 500;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+		color: #131313;
+		background: #ffffff;
+		text-decoration: none;
+		padding: 0.55rem 1.25rem;
+		border-radius: 100px;
+		transition: background 0.3s ease;
+		white-space: nowrap;
+	}
+
+	.nav-call-btn:hover {
+		background: rgba(255, 255, 255, 0.85);
+	}
+
+	/* Hamburger — hidden on desktop */
 	.nav-menu-btn {
 		display: none;
 		background: none;
@@ -172,7 +219,7 @@ const currentPath = Astro.url.pathname;
 		font-size: 1.5rem;
 	}
 
-	/* Mobile drawer */
+	/* ── Mobile drawer ───────────────────── */
 	.nav-drawer {
 		position: fixed;
 		top: 0;
@@ -195,7 +242,7 @@ const currentPath = Astro.url.pathname;
 		display: flex;
 		flex-direction: column;
 		gap: 0;
-		padding: 5rem 2.5rem 2rem;
+		padding: 5rem 2.5rem 2.5rem;
 	}
 
 	.nav-drawer-link {
@@ -207,42 +254,80 @@ const currentPath = Astro.url.pathname;
 		text-decoration: none;
 		padding: 0.75rem 0;
 		border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-		transition: color 0.3s ease;
+		transition: color 0.3s ease, padding-left 0.3s ease;
 	}
 
-	.nav-drawer-link:hover,
+	.nav-drawer-link:hover {
+		color: rgba(255, 255, 255, 0.75);
+	}
+
 	.nav-drawer-link.active {
 		color: #ffffff;
+		padding-left: 0.75rem;
+		border-left: 2px solid #ffffff;
+	}
+
+	/* Call button inside drawer */
+	.nav-drawer-call-btn {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.5rem;
+		margin-top: 2.5rem;
+		font-family: "Manrope", sans-serif;
+		font-size: 0.8rem;
+		font-weight: 500;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+		color: #131313;
+		background: #ffffff;
+		text-decoration: none;
+		padding: 0.85rem 1.5rem;
+		border-radius: 100px;
+		align-self: flex-start;
+		transition: background 0.3s ease;
+	}
+
+	.nav-drawer-call-btn:hover {
+		background: rgba(255, 255, 255, 0.85);
+	}
+
+	.nav-drawer-call-btn .material-symbols-outlined {
+		font-size: 1rem;
 	}
 
 	.nav-drawer-backdrop {
-		display: none;
 		position: fixed;
 		inset: 0;
 		z-index: 190;
 		background: rgba(0, 0, 0, 0.6);
 		opacity: 0;
+		pointer-events: none;
 		transition: opacity 0.3s ease;
 	}
 
 	.nav-drawer-backdrop.visible {
 		opacity: 1;
+		pointer-events: auto;
 	}
 
+	/* ── Responsive ──────────────────────── */
 	@media (max-width: 768px) {
 		.site-nav {
+			grid-template-columns: 1fr auto;
 			padding: 1.25rem 1.5rem;
 		}
 
+		/* Hide center nav links and call btn on mobile */
 		.nav-links {
 			display: none;
 		}
 
-		.nav-menu-btn {
-			display: block;
+		.nav-call-btn {
+			display: none;
 		}
 
-		.nav-drawer-backdrop {
+		/* Show hamburger on mobile */
+		.nav-menu-btn {
 			display: block;
 		}
 	}
