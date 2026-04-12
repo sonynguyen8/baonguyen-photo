@@ -184,7 +184,7 @@ import Base from "../../layouts/Base.astro";
 
 	.portfolio-title {
 		font-family: "Newsreader", serif;
-		font-style: italic;
+		font-style: normal;
 		font-size: clamp(3rem, 8vw, 6rem);
 		font-weight: 300;
 		line-height: 1.05;
@@ -225,15 +225,12 @@ import Base from "../../layouts/Base.astro";
 		height: 100%;
 		object-fit: cover;
 		display: block;
-		filter: grayscale(100%);
-		transition: filter 1.2s cubic-bezier(0.22, 1, 0.36, 1),
-		            transform 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+		transition: transform 1.2s cubic-bezier(0.22, 1, 0.36, 1);
 	}
 
 	.gallery-img--natural { height: auto; }
 
 	.img-wrap:hover .gallery-img {
-		filter: grayscale(0%);
 		transform: scale(1.02);
 	}
 
@@ -266,7 +263,7 @@ import Base from "../../layouts/Base.astro";
 
 	.plate-caption {
 		font-family: "Newsreader", serif;
-		font-style: italic;
+		font-style: normal;
 		font-size: 0.8rem;
 		color: rgba(255, 255, 255, 0.4);
 	}
@@ -315,7 +312,7 @@ import Base from "../../layouts/Base.astro";
 
 	.wide-title {
 		font-family: "Newsreader", serif;
-		font-style: italic;
+		font-style: normal;
 		font-size: 1.5rem;
 		color: #ffffff;
 		margin: 0 0 0.5rem;
@@ -394,7 +391,7 @@ import Base from "../../layouts/Base.astro";
 
 	.final-title {
 		font-family: "Newsreader", serif;
-		font-style: italic;
+		font-style: normal;
 		font-size: clamp(2.5rem, 6vw, 4.5rem);
 		font-weight: 300;
 		color: #ffffff;
@@ -416,7 +413,7 @@ import Base from "../../layouts/Base.astro";
 
 	.next-label {
 		font-family: "Newsreader", serif;
-		font-style: italic;
+		font-style: normal;
 		font-size: 1.2rem;
 		color: rgba(255, 255, 255, 0.35);
 	}
@@ -436,6 +433,6 @@ import Base from "../../layouts/Base.astro";
 		transition: font-style 0.3s ease;
 	}
 
-	.next-link:hover .next-name { font-style: italic; }
+	.next-link:hover .next-name { }
 	.next-link .material-symbols-outlined { font-size: 2rem; }
 </style>

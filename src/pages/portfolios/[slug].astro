@@ -59,7 +59,7 @@ const d = portfolio.data;
 								<div class="plate-caption">
 									<span class="plate-no">Plate No. 001</span>
 									{d.plate_1_caption && (
-										<span class="plate-name italic">{d.plate_1_caption}</span>
+										<span class="plate-name">{d.plate_1_caption}</span>
 									)}
 								</div>
 							</div>
@@ -72,7 +72,7 @@ const d = portfolio.data;
 								<div class="plate-caption">
 									<span class="plate-no">Plate No. 002</span>
 									{d.plate_2_caption && (
-										<span class="plate-name italic">{d.plate_2_caption}</span>
+										<span class="plate-name">{d.plate_2_caption}</span>
 									)}
 								</div>
 							</div>
@@ -113,7 +113,7 @@ const d = portfolio.data;
 								<div class="plate-caption">
 									<span class="plate-no">Plate No. 004 / The Scene</span>
 									{d.plate_4_caption && (
-										<span class="plate-name italic">{d.plate_4_caption}</span>
+										<span class="plate-name">{d.plate_4_caption}</span>
 									)}
 								</div>
 							</div>
@@ -212,7 +212,7 @@ const d = portfolio.data;
 
 	.detail-title {
 		font-family: var(--font-headline);
-		font-style: italic;
+		font-style: normal;
 		font-weight: 300;
 		font-size: clamp(3rem, 8vw, 6rem);
 		line-height: 1.05;
@@ -297,8 +297,8 @@ const d = portfolio.data;
 		color: rgba(145, 145, 145, 0.6);
 	}
 
-	.plate-name.italic {
-		font-style: italic;
+	.plate-name {
+		font-style: normal;
 	}
 
 	/* ─── Row 1: portrait + square ─────────────────── */
@@ -337,7 +337,7 @@ const d = portfolio.data;
 
 	.plate-3-title {
 		font-family: var(--font-headline);
-		font-style: italic;
+		font-style: normal;
 		font-size: 1.5rem;
 		font-weight: 300;
 		color: #ffffff;
@@ -398,7 +398,7 @@ const d = portfolio.data;
 
 	.plate-6-title {
 		font-family: var(--font-headline);
-		font-style: italic;
+		font-style: normal;
 		font-weight: 300;
 		font-size: clamp(2rem, 5vw, 4rem);
 		line-height: 1.05;
@@ -422,7 +422,7 @@ const d = portfolio.data;
 
 	.next-label {
 		font-family: var(--font-headline);
-		font-style: italic;
+		font-style: normal;
 		font-size: 1.25rem;
 		color: rgba(145, 145, 145, 0.5);
 	}
@@ -443,7 +443,7 @@ const d = portfolio.data;
 	}
 
 	.next-link:hover .next-title {
-		font-style: italic;
+		font-style: normal;
 	}
 
 	.next-arrow {
