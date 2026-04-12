@@ -7,6 +7,7 @@ const works = [
 		category: "Weddings",
 		year: "01-2025",
 		italic: true,
+		url: "/minh-linh-evermore",
 		src: "/images/s-s-prewedding/image-11.jpg",
 	},
 	{
@@ -14,6 +15,7 @@ const works = [
 		category: "Portraits",
 		year: "03-2025",
 		italic: false,
+		url: "/huy-trang-softlight",
 		src: "/images/t-c-prewedding/image-2.jpg",
 	},
 	{
@@ -21,13 +23,15 @@ const works = [
 		category: "Love Stories",
 		year: "06-2025",
 		italic: true,
-		src: "/images/s-s-prewedding/image-12.jpg",
+		url: "/khang-vy-golden-hour",
+		src: "/images/s-s-prewedding/image-8.jpg",
 	},
 	{
 		title: "Tuấn & Ngọc - Save the day",
 		category: "Portraits",
 		year: "09-2025",
 		italic: false,
+		url: "/tuan-ngoc-sweet-moment",
 		src: "/images/coming-soon.jpg",
 	},
 	{
@@ -35,6 +39,7 @@ const works = [
 		category: "Weddings",
 		year: "11-2025",
 		italic: false,
+		url: "/duc-han-quiet-love",
 		src: "/images/coming-soon.jpg",
 	},
 	{
@@ -42,6 +47,7 @@ const works = [
 		category: "Love Stories",
 		year: "01-2026",
 		italic: true,
+		url: "/phuc-mai-first-light",
 		src: "/images/coming-soon.jpg",
 	},
 	{
@@ -49,6 +55,7 @@ const works = [
 		category: "Weddings",
 		year: "02-2026",
 		italic: false,
+		url: "/nam-thao-timeless",
 		src: "/images/coming-soon.jpg",
 	},
 	{
@@ -56,6 +63,7 @@ const works = [
 		category: "Portraits",
 		year: "03-2026",
 		italic: false,
+		url: "/quan-linh-daydream",
 		src: "/images/coming-soon.jpg",
 	},
 	{
@@ -63,6 +71,7 @@ const works = [
 		category: "Love Stories",
 		year: "04-2026",
 		italic: true,
+		url: "/hoang-vy-in-bloom",
 		src: "/images/coming-soon.jpg",
 	},
 ];
@@ -108,20 +117,22 @@ const filters = ["All", "Portraits", "Love Stories", "Weddings"];
 						class="gallery-item"
 						data-category={work.category}
 					>
-						<div class="gallery-img-wrap">
-							<img
-								src={work.src}
-								alt={work.title}
-								class="gallery-img"
-								loading="lazy"
-							/>
-						</div>
-						<div class="gallery-meta">
-							<h3 class:list={["gallery-title", { italic: work.italic }]}>
-								{work.title}
-							</h3>
-							<span class="gallery-label">{work.category}</span>
-						</div>
+						<a href={`/portfolios${work.url}`} class="gallery-link">
+							<div class="gallery-img-wrap">
+								<img
+									src={work.src}
+									alt={work.title}
+									class="gallery-img"
+									loading="lazy"
+								/>
+							</div>
+							<div class="gallery-meta">
+								<h3 class:list={["gallery-title", { italic: work.italic }]}>
+									{work.title}
+								</h3>
+								<span class="gallery-label">{work.category}</span>
+							</div>
+						</a>
 					</article>
 				))}
 			</div>
@@ -241,6 +252,13 @@ const filters = ["All", "Portraits", "Love Stories", "Weddings"];
 	/* ─── Gallery ───────────────────────────────────────── */
 	.gallery {
 		padding: 0 3rem;
+	}
+
+	.gallery-link {
+		display: flex;
+		flex-direction: column;
+		text-decoration: none;
+		color: inherit;
 	}
 
 	.gallery-grid {
