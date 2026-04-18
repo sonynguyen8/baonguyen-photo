@@ -1,0 +1,215 @@
+---
+import Base from "../../layouts/Base.astro";
+const bp = "/images/portfolios/Pre-Wedding/Q-A_pre-wedding";
+const imgs = [
+	"QA1.jpg","QA2.jpg","QA3.jpg","QA4.jpg","QA5.jpg","QA6.jpg","QA7.jpg","QA8.jpg","QA9.jpg",
+	"QA10.jpg","QA11.jpg","QA12.jpg","QA13.jpg","QA14.jpg","QA15.jpg","QA16.jpg","QA17.jpg",
+	"QA18.jpg","QA19.jpg","QA20.jpg","QA21.jpg","QA22.jpg","QA23.jpg","QA24.jpg","QA25.jpg","QA26.jpg",
+].map(f => `${bp}/${f}`);
+---
+<Base title="Q & A — Pre-Wedding" description="An intimate chronicle of two souls discovering the world anew through each other's eyes.">
+
+<div class="cinematic-scrubber" id="scrubber"></div>
+
+<main class="pf-page">
+
+	<header class="pf-header">
+		<a href="/portfolios" class="back-link">
+			<span class="material-symbols-outlined">arrow_back</span>
+			<span>Back to Portfolios</span>
+		</a>
+		<h1 class="pf-title">Q &amp; A<br/>Pre-Wedding</h1>
+		<p class="pf-desc">An intimate chronicle of two souls discovering the world anew through each other's eyes.</p>
+		<div class="pf-meta">
+			<span>Pre-Wedding</span>
+			<span class="pf-meta-line"></span>
+			<span>26 Plates</span>
+		</div>
+	</header>
+
+	<div class="gal">
+
+		<!-- S1: Hero + 2 stacked (001–003) -->
+		<section class="s1">
+			<div class="s1m">
+				<div class="ic r169"><img src={imgs[0]} alt="Plate 001" loading="lazy" /></div>
+				<div class="s1meta">
+					<span class="pn" style="margin-top:0">Plate No. 001</span>
+					<span class="pc">Opening Frame</span>
+				</div>
+			</div>
+			<div class="s1s">
+				<div>
+					<div class="ic r11"><img src={imgs[1]} alt="Plate 002" loading="lazy" /></div>
+					<span class="pn">Plate No. 002</span>
+				</div>
+				<div>
+					<div class="ic r34"><img src={imgs[2]} alt="Plate 003" loading="lazy" /></div>
+					<span class="pn">Plate No. 003</span>
+				</div>
+			</div>
+		</section>
+
+		<!-- S2: Full width (004) -->
+		{imgs[3] && <section class="s2">
+			<div class="ic"><img src={imgs[3]} alt="Plate 004" loading="lazy" /></div>
+			<div class="s2meta"><span class="pn">Plate No. 004</span></div>
+		</section>}
+
+		<!-- S3: Triptych (005–007) -->
+		{imgs[6] && <section class="s3">
+			<div>
+				<div class="ic r23"><img src={imgs[4]} alt="Plate 005" loading="lazy" /></div>
+				<span class="pn">Plate No. 005</span>
+			</div>
+			<div>
+				<div class="ic r23"><img src={imgs[5]} alt="Plate 006" loading="lazy" /></div>
+				<span class="pn">Plate No. 006</span>
+			</div>
+			<div>
+				<div class="ic r23"><img src={imgs[6]} alt="Plate 007" loading="lazy" /></div>
+				<span class="pn">Plate No. 007</span>
+			</div>
+		</section>}
+
+		<!-- S4: Asymmetric (008–011) -->
+		{imgs[10] && <section class="s4">
+			<div class="s4l">
+				<div class="ic r45"><img src={imgs[7]} alt="Plate 008" loading="lazy" /></div>
+				<span class="pn">Plate No. 008</span>
+			</div>
+			<div class="s4r">
+				<div class="ic r169"><img src={imgs[8]} alt="Plate 009" loading="lazy" /></div>
+				<span class="pn">Plate No. 009</span>
+				<div class="s4g">
+					<div>
+						<div class="ic r11"><img src={imgs[9]} alt="Plate 010" loading="lazy" /></div>
+						<span class="pn">Plate No. 010</span>
+					</div>
+					<div>
+						<div class="ic r11"><img src={imgs[10]} alt="Plate 011" loading="lazy" /></div>
+						<span class="pn">Plate No. 011</span>
+					</div>
+				</div>
+			</div>
+		</section>}
+
+		<!-- S5: Centerpiece (012–015) -->
+		{imgs[14] && <section class="s5">
+			<div class="ic r34"><img src={imgs[11]} alt="Plate 012" loading="lazy" /></div>
+			<span class="pn" style="font-size:1.5rem">Plate No. 012</span>
+			<div class="s5trio">
+				<div class="ic r11"><img src={imgs[12]} alt="Plate 013" loading="lazy" /></div>
+				<div class="ic r11"><img src={imgs[13]} alt="Plate 014" loading="lazy" /></div>
+				<div class="ic r11"><img src={imgs[14]} alt="Plate 015" loading="lazy" /></div>
+			</div>
+			<div class="s5labels">
+				<span>Plate No. 013</span>
+				<span>Plate No. 014</span>
+				<span>Plate No. 015</span>
+			</div>
+		</section>}
+
+		<!-- S6: Wide narrative (016–019) -->
+		{imgs[18] && <section class="s6">
+			<div class="s6w">
+				<div class="ic r11"><img src={imgs[15]} alt="Plate 016" loading="lazy" /></div>
+				<span class="pn">Plate No. 016</span>
+			</div>
+			<div class="s6m">
+				<div class="ic r23"><img src={imgs[16]} alt="Plate 017" loading="lazy" /></div>
+				<span class="pn">Plate No. 017</span>
+			</div>
+			<div>
+				<div class="ic r11" style="margin-bottom:1.5rem"><img src={imgs[17]} alt="Plate 018" loading="lazy" /></div>
+				<span class="pn" style="margin-top:0">Plate No. 018</span>
+				<div class="ic r11" style="margin-top:1.5rem"><img src={imgs[18]} alt="Plate 019" loading="lazy" /></div>
+				<span class="pn">Plate No. 019</span>
+			</div>
+		</section>}
+
+		<!-- S7: Double vision (020–021) -->
+		{imgs[20] && <section class="s7">
+			<div>
+				<div class="ic r45"><img src={imgs[19]} alt="Plate 020" loading="lazy" /></div>
+				<span class="pn" style="font-size:1.2rem">Plate No. 020</span>
+			</div>
+			<div>
+				<div class="ic r45"><img src={imgs[20]} alt="Plate 021" loading="lazy" /></div>
+				<span class="pn" style="font-size:1.2rem">Plate No. 021</span>
+			</div>
+		</section>}
+
+		<!-- S8: Rapid rhythm (022+) -->
+		{imgs[21] && <section class="s8">
+			{imgs.slice(21).map((src, i) => (
+				<img src={src} alt={`Plate ${String(22 + i).padStart(3, "0")}`} loading="lazy" />
+			))}
+		</section>}
+
+	</div>
+
+	<section class="pf-cta">
+		<h2>Capture your narrative.</h2>
+		<a href="/contact" class="pf-cta-btn">Book a Session</a>
+	</section>
+
+</main>
+</Base>
+
+<script>
+	const s = document.getElementById("scrubber")!;
+	window.addEventListener("scroll", () => {
+		s.style.width = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight) * 100) + "%";
+	}, { passive: true });
+</script>
+
+<style>
+	.cinematic-scrubber { height: 2px; background: #fff; width: 0%; position: fixed; top: 0; left: 0; z-index: 200; transition: width .1s linear; }
+	.pf-page { padding: 9rem 1.5rem 5rem; max-width: 1600px; margin: 0 auto; }
+	@media (min-width: 768px) { .pf-page { padding-left: 3rem; padding-right: 3rem; } }
+	.pf-header { margin-bottom: 8rem; }
+	.back-link { display: inline-flex; align-items: center; gap: .5rem; font-family: var(--font-body); font-size: .7rem; letter-spacing: .2em; text-transform: uppercase; color: rgba(255,255,255,.35); text-decoration: none; margin-bottom: 3rem; transition: color .4s ease; }
+	.back-link:hover { color: #fff; }
+	.back-link .material-symbols-outlined { font-size: 1rem; }
+	.pf-title { font-family: var(--font-headline); font-size: clamp(4rem, 8vw, 8rem); font-weight: 300; line-height: .9; letter-spacing: -.02em; color: #fff; margin-bottom: 2rem; }
+	.pf-desc { max-width: 36rem; font-size: 1.1rem; line-height: 1.7; color: rgba(198,198,199,.8); font-weight: 300; margin-bottom: 3rem; }
+	.pf-meta { display: flex; align-items: center; gap: 1rem; font-family: var(--font-body); font-size: .625rem; letter-spacing: .3em; text-transform: uppercase; color: #919191; }
+	.pf-meta-line { width: 2rem; height: 1px; background: #474747; display: inline-block; }
+	.gal { display: flex; flex-direction: column; gap: 8rem; }
+	@media (min-width: 768px) { .gal { gap: 16rem; } }
+	.ic { overflow: hidden; background: #1b1b1b; }
+	.ic img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .8s cubic-bezier(.16,1,.3,1); }
+	.ic:hover img { transform: scale(1.03); }
+	.r169 { aspect-ratio: 16/9; } .r45 { aspect-ratio: 4/5; } .r11 { aspect-ratio: 1/1; }
+	.r34 { aspect-ratio: 3/4; } .r23 { aspect-ratio: 2/3; } .r1610 { aspect-ratio: 16/10; }
+	.pn { font-family: var(--font-headline); font-size: .95rem; color: rgba(255,255,255,.6); margin-top: .75rem; display: block; }
+	.pc { font-family: var(--font-body); font-size: .55rem; letter-spacing: .25em; text-transform: uppercase; color: rgba(255,255,255,.3); }
+	.s1 { display: grid; grid-template-columns: 1fr; gap: 2rem; align-items: end; }
+	@media (min-width: 768px) { .s1 { grid-template-columns: repeat(12,1fr); } .s1m { grid-column: span 8; } .s1s { grid-column: span 4; display: flex; flex-direction: column; gap: 5rem; } }
+	.s1meta { display: flex; justify-content: space-between; align-items: baseline; margin-top: .75rem; }
+	.s2 .ic { height: 60vh; min-height: 380px; }
+	.s2meta { margin-top: 1.5rem; text-align: right; }
+	.s2meta .pn { font-size: 1.5rem; margin-top: 0; }
+	.s3 { display: grid; grid-template-columns: 1fr; gap: .25rem; }
+	@media (min-width: 768px) { .s3 { grid-template-columns: repeat(3,1fr); } }
+	.s3 .pn { opacity: .5; }
+	.s4 { display: grid; grid-template-columns: 1fr; gap: 3rem; }
+	@media (min-width: 768px) { .s4 { grid-template-columns: repeat(10,1fr); gap: 3rem; } .s4l { grid-column: span 3; padding-top: 8rem; } .s4r { grid-column: span 7; } }
+	.s4g { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 2rem; }
+	.s5 { max-width: 56rem; margin: 0 auto; }
+	.s5trio { display: grid; grid-template-columns: repeat(3,1fr); gap: .75rem; margin-top: 5rem; }
+	.s5labels { display: flex; justify-content: space-between; margin-top: .5rem; font-family: var(--font-body); font-size: .55rem; letter-spacing: .25em; text-transform: uppercase; color: #919191; }
+	.s6 { display: grid; grid-template-columns: 1fr; gap: 2rem; }
+	@media (min-width: 768px) { .s6 { grid-template-columns: repeat(4,1fr); align-items: end; } .s6w { grid-column: span 2; } .s6m { padding-top: 3rem; } }
+	.s7 { display: grid; grid-template-columns: 1fr; gap: 4rem; }
+	@media (min-width: 768px) { .s7 { grid-template-columns: 1fr 1fr; gap: 6rem; } .s7 > :last-child { margin-top: 6rem; } }
+	.s8 { display: grid; grid-template-columns: repeat(2,1fr); gap: .75rem; }
+	@media (min-width: 768px) { .s8 { grid-template-columns: repeat(4,1fr); } }
+	.s8 img { aspect-ratio: 1/1; object-fit: cover; width: 100%; display: block; opacity: .65; transition: opacity .4s ease, transform .6s ease; }
+	.s8 img:hover { opacity: 1; transform: scale(1.02); }
+	.pf-cta { margin-top: 16rem; padding-top: 4rem; border-top: 1px solid rgba(255,255,255,.08); text-align: center; }
+	.pf-cta h2 { font-family: var(--font-headline); font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 300; color: #fff; margin-bottom: 3rem; }
+	.pf-cta-btn { display: inline-block; background: #fff; color: #131313; padding: 1.25rem 3rem; font-family: var(--font-body); font-size: .65rem; text-transform: uppercase; letter-spacing: .18em; font-weight: 500; text-decoration: none; transition: opacity .4s ease; }
+	.pf-cta-btn:hover { opacity: .85; }
+</style>
