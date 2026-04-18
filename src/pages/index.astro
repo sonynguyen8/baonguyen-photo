@@ -390,17 +390,52 @@ import { Image } from "astro:assets";
 		background: var(--color-surface);
 		padding: 3rem;
 		cursor: pointer;
-		transition: background 0.5s ease;
+		position: relative;
+		transition: background 0.6s ease;
+		overflow: hidden;
+	}
+
+	/* Top reveal line draws across on hover */
+	.service-card::before {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 0%;
+		height: 1px;
+		background: #ffffff;
+		transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 	}
 
 	.service-card:hover {
 		background: var(--color-surface-container-high);
 	}
 
+	.service-card:hover::before {
+		width: 100%;
+	}
+
 	.service-img-wrap {
 		aspect-ratio: 4 / 5;
 		overflow: hidden;
 		margin-bottom: 2rem;
+		position: relative;
+	}
+
+	/* Dark gradient overlay — fades out on hover for a reveal effect */
+	.service-img-wrap::after {
+		content: '';
+		position: absolute;
+		inset: 0;
+		background: linear-gradient(to top, rgba(0, 0, 0, 0.45) 0%, transparent 55%);
+		opacity: 1;
+		transition: opacity 0.7s ease;
+		pointer-events: none;
+		z-index: 1;
+	}
+
+	.service-card:hover .service-img-wrap::after {
+		opacity: 0;
 	}
 
 	.service-img {
@@ -408,11 +443,15 @@ import { Image } from "astro:assets";
 		height: 100%;
 		object-fit: cover;
 		filter: grayscale(1);
-		transition: transform 0.7s ease;
+		transition:
+			transform 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+			filter 0.9s ease;
 	}
 
+	/* Image: zoom in + reveal colour on hover */
 	.service-card:hover .service-img {
-		transform: scale(1.05);
+		transform: scale(1.07);
+		filter: grayscale(0);
 	}
 
 	.service-title {
@@ -421,6 +460,12 @@ import { Image } from "astro:assets";
 		font-size: 1.875rem;
 		color: var(--color-on-surface);
 		margin-bottom: 1rem;
+		transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), color 0.3s ease;
+	}
+
+	.service-card:hover .service-title {
+		transform: translateY(-4px);
+		color: #ffffff;
 	}
 
 	.service-desc {
@@ -429,6 +474,12 @@ import { Image } from "astro:assets";
 		line-height: 1.65;
 		color: var(--color-on-surface-variant);
 		margin-bottom: 2rem;
+		transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), color 0.3s ease;
+	}
+
+	.service-card:hover .service-desc {
+		transform: translateY(-3px);
+		color: rgba(210, 210, 210, 0.9);
 	}
 
 	.service-label {
@@ -437,11 +488,13 @@ import { Image } from "astro:assets";
 		text-transform: uppercase;
 		letter-spacing: 0.18em;
 		color: var(--color-outline);
-		transition: color 0.3s ease;
+		display: inline-block;
+		transition: color 0.3s ease, letter-spacing 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 	}
 
 	.service-card:hover .service-label {
 		color: #ffffff;
+		letter-spacing: 0.28em;
 	}
 
 	/* ─── CTA ──────────────────────────────────────────── */
