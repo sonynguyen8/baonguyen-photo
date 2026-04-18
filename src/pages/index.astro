@@ -391,7 +391,7 @@ import { Image } from "astro:assets";
 		padding: 3rem;
 		cursor: pointer;
 		position: relative;
-		transition: background 0.6s ease;
+		transition: background 1s cubic-bezier(0.16, 1, 0.3, 1);
 		overflow: hidden;
 	}
 
@@ -404,7 +404,7 @@ import { Image } from "astro:assets";
 		width: 0%;
 		height: 1px;
 		background: #ffffff;
-		transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+		transition: width 0.8s cubic-bezier(0.16, 1, 0.3, 1);
 	}
 
 	.service-card:hover {
@@ -422,14 +422,14 @@ import { Image } from "astro:assets";
 		position: relative;
 	}
 
-	/* Dark gradient overlay — fades out on hover for a reveal effect */
+	/* Dark gradient overlay — fades out on hover */
 	.service-img-wrap::after {
 		content: '';
 		position: absolute;
 		inset: 0;
 		background: linear-gradient(to top, rgba(0, 0, 0, 0.45) 0%, transparent 55%);
 		opacity: 1;
-		transition: opacity 0.7s ease;
+		transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1);
 		pointer-events: none;
 		z-index: 1;
 	}
@@ -443,12 +443,13 @@ import { Image } from "astro:assets";
 		height: 100%;
 		object-fit: cover;
 		filter: grayscale(1);
+		will-change: transform, filter;
 		transition:
-			transform 0.9s cubic-bezier(0.16, 1, 0.3, 1),
-			filter 0.9s ease;
+			transform 1.2s cubic-bezier(0.16, 1, 0.3, 1),
+			filter 1.2s cubic-bezier(0.16, 1, 0.3, 1);
 	}
 
-	/* Image: zoom in + reveal colour on hover */
+	/* Image: zoom + colour reveal */
 	.service-card:hover .service-img {
 		transform: scale(1.07);
 		filter: grayscale(0);
@@ -460,7 +461,9 @@ import { Image } from "astro:assets";
 		font-size: 1.875rem;
 		color: var(--color-on-surface);
 		margin-bottom: 1rem;
-		transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), color 0.3s ease;
+		transition:
+			transform 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+			color 0.7s cubic-bezier(0.16, 1, 0.3, 1);
 	}
 
 	.service-card:hover .service-title {
@@ -474,7 +477,9 @@ import { Image } from "astro:assets";
 		line-height: 1.65;
 		color: var(--color-on-surface-variant);
 		margin-bottom: 2rem;
-		transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), color 0.3s ease;
+		transition:
+			transform 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+			color 0.7s cubic-bezier(0.16, 1, 0.3, 1);
 	}
 
 	.service-card:hover .service-desc {
@@ -489,7 +494,9 @@ import { Image } from "astro:assets";
 		letter-spacing: 0.18em;
 		color: var(--color-outline);
 		display: inline-block;
-		transition: color 0.3s ease, letter-spacing 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+		transition:
+			color 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+			letter-spacing 0.7s cubic-bezier(0.16, 1, 0.3, 1);
 	}
 
 	.service-card:hover .service-label {
