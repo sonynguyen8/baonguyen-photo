@@ -216,6 +216,26 @@ const pageCtx = createPublicPageContext({
 				transition: width 0.1s linear;
 			}
 
+			/* ─── Universal Image Hover ─────────────────── */
+			.ic img,
+			.gallery-img-wrap img,
+			.about-image-wrap img,
+			.hero-image-wrap img,
+			.s8 img {
+				transition:
+					transform 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+					filter 0.9s ease !important;
+			}
+
+			.ic:hover img,
+			.gallery-img-wrap:hover img,
+			.about-image-wrap:hover img,
+			.hero-image-wrap:hover img,
+			.s8 img:hover {
+				transform: scale(1.07) !important;
+				filter: grayscale(0) !important;
+			}
+
 			/* ─── Image Skeleton Loading ─────────────────── */
 			@keyframes sk-shimmer {
 				0%   { background-position: 200% 0; }
