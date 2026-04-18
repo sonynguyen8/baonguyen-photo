@@ -14,6 +14,8 @@ import { Image } from "astro:assets";
 				class="hero-img"
 				width={1920}
 				height={1080}
+				widths={[640, 1280, 1920]}
+				sizes="100vw"
 				loading="eager"
 				layout="none"
 			/>
@@ -38,6 +40,8 @@ import { Image } from "astro:assets";
 						class="about-img"
 						width={800}
 						height={1067}
+						widths={[400, 800]}
+						sizes="(max-width: 768px) 100vw, 40vw"
 						layout="none"
 					/>
 				</div>
@@ -88,6 +92,8 @@ import { Image } from "astro:assets";
 							class="service-img"
 							width={800}
 							height={1000}
+							widths={[400, 800]}
+							sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
 							layout="none"
 						/>
 					</div>
@@ -108,6 +114,8 @@ import { Image } from "astro:assets";
 							class="service-img"
 							width={800}
 							height={1000}
+							widths={[400, 800]}
+							sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
 							layout="none"
 						/>
 					</div>
@@ -128,6 +136,8 @@ import { Image } from "astro:assets";
 							class="service-img"
 							width={800}
 							height={1000}
+							widths={[400, 800]}
+							sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
 							layout="none"
 						/>
 					</div>
@@ -151,6 +161,8 @@ import { Image } from "astro:assets";
 				class="cta-img"
 				width={1920}
 				height={1080}
+				widths={[640, 1280, 1920]}
+				sizes="100vw"
 				layout="none"
 			/>
 		</div>
