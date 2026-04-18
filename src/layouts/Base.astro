@@ -95,6 +95,28 @@ const pageCtx = createPublicPageContext({
 					indicator.style.width = `${pct}%`;
 				}, { passive: true });
 			}
+
+			// Image skeleton — fade in images when loaded, remove shimmer
+			const SK_SELECTOR = '.ic, .gallery-img-wrap, .about-image-wrap, .service-img-wrap, .hero-image-wrap, .hero-bg, .cta-bg';
+			document.querySelectorAll<HTMLElement>(SK_SELECTOR).forEach(wrap => {
+				const img = wrap.querySelector('img');
+				if (!img) return;
+
+				img.style.opacity = '0';
+				img.style.transition = 'opacity 0.6s ease';
+
+				const reveal = () => {
+					img.style.opacity = '1';
+					wrap.classList.add('sk-loaded');
+				};
+
+				if ((img as HTMLImageElement).complete && (img as HTMLImageElement).naturalWidth > 0) {
+					reveal();
+				} else {
+					img.addEventListener('load', reveal, { once: true });
+					img.addEventListener('error', reveal, { once: true });
+				}
+			});
 		</script>
 
 		<style is:global>
@@ -192,6 +214,50 @@ const pageCtx = createPublicPageContext({
 				background: var(--color-primary);
 				z-index: 100;
 				transition: width 0.1s linear;
+			}
+
+			/* ─── Image Skeleton Loading ─────────────────── */
+			@keyframes sk-shimmer {
+				0%   { background-position: 200% 0; }
+				100% { background-position: -200% 0; }
+			}
+
+			.ic,
+			.gallery-img-wrap,
+			.about-image-wrap,
+			.service-img-wrap,
+			.hero-image-wrap,
+			.hero-bg,
+			.cta-bg {
+				position: relative;
+			}
+
+			.ic::before,
+			.gallery-img-wrap::before,
+			.about-image-wrap::before,
+			.service-img-wrap::before,
+			.hero-image-wrap::before,
+			.hero-bg::before,
+			.cta-bg::before {
+				content: '';
+				position: absolute;
+				inset: 0;
+				z-index: 2;
+				pointer-events: none;
+				background: linear-gradient(
+					90deg,
+					transparent 25%,
+					rgba(255, 255, 255, 0.055) 50%,
+					transparent 75%
+				);
+				background-size: 200% 100%;
+				animation: sk-shimmer 1.6s ease-in-out infinite;
+				transition: opacity 0.5s ease;
+			}
+
+			.sk-loaded::before {
+				opacity: 0;
+				animation: none;
 			}
 		</style>
 	</body>
