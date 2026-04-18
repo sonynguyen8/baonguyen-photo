@@ -1,5 +1,6 @@
 ---
 import Base from "../../layouts/Base.astro";
+import { Image } from "astro:assets";
 
 const works = [
   {
@@ -102,11 +103,14 @@ const filters = ["All", "Portraits", "Love Stories", "Weddings"];
 					>
 						<a href={`/portfolios${work.url}`} class="gallery-link">
 							<div class="gallery-img-wrap">
-								<img
+								<Image
 									src={work.src}
 									alt={work.title}
 									class="gallery-img"
 									loading="lazy"
+									width={700}
+									height={875}
+									layout="none"
 								/>
 							</div>
 							<div class="gallery-meta">
@@ -143,7 +147,7 @@ const filters = ["All", "Portraits", "Love Stories", "Weddings"];
 
 		const filter = btn.dataset.filter!;
 
-		// Update pill states
+k
 		filterBar.querySelectorAll<HTMLButtonElement>(".filter-pill").forEach((p) => {
 			const isActive = p === btn;
 			p.classList.toggle("active", isActive);

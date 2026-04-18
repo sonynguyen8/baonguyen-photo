@@ -1,5 +1,6 @@
 ---
 import Base from "../layouts/Base.astro";
+import { Image } from "astro:assets";
 ---
 
 <Base title="Bao Nguyen Studio" description="Cinematic noir photography — preserving the silent poetry of your most intimate moments.">
@@ -7,10 +8,14 @@ import Base from "../layouts/Base.astro";
 	<!-- ─── Hero ─────────────────────────────────────────── -->
 	<section class="hero">
 		<div class="hero-bg">
-			<img
+			<Image
 				src="/images/home/hero-banner.jpg"
 				alt="Couple standing by the river with Ho Chi Minh City skyline"
 				class="hero-img"
+				width={1920}
+				height={1080}
+				loading="eager"
+				layout="none"
 			/>
 		</div>
 		<div class="hero-content">
@@ -27,10 +32,13 @@ import Base from "../layouts/Base.astro";
 		<div class="about-inner">
 			<div class="about-image-col">
 				<div class="about-image-wrap">
-					<img
+					<Image
 						src="/images/home/photo-profile.jpg"
 						alt="Portrait of Bao Nguyen"
 						class="about-img"
+						width={800}
+						height={1067}
+						layout="none"
 					/>
 				</div>
 				<p class="about-caption">The Artist · 2024</p>
@@ -74,10 +82,13 @@ import Base from "../layouts/Base.astro";
 				<!-- Portraits -->
 				<article class="service-card">
 					<div class="service-img-wrap">
-						<img
+						<Image
 							src="/images/home/what-i-do-3.jpg"
 							alt="Bride in garden with flowers"
 							class="service-img"
+							width={800}
+							height={1000}
+							layout="none"
 						/>
 					</div>
 					<h3 class="service-title">Portraits</h3>
@@ -91,10 +102,13 @@ import Base from "../layouts/Base.astro";
 				<!-- Love Stories -->
 				<article class="service-card">
 					<div class="service-img-wrap">
-						<img
+						<Image
 							src="/images/home/what-i-do-1.jpg"
 							alt="Couple sharing an intimate moment by a garden pond"
 							class="service-img"
+							width={800}
+							height={1000}
+							layout="none"
 						/>
 					</div>
 					<h3 class="service-title">Love Stories</h3>
@@ -108,10 +122,13 @@ import Base from "../layouts/Base.astro";
 				<!-- Weddings -->
 				<article class="service-card">
 					<div class="service-img-wrap">
-						<img
+						<Image
 							src="/images/home/what-i-do-2.jpg"
 							alt="Bride and groom embracing in a grand hall"
 							class="service-img"
+							width={800}
+							height={1000}
+							layout="none"
 						/>
 					</div>
 					<h3 class="service-title">Weddings</h3>
@@ -128,10 +145,13 @@ import Base from "../layouts/Base.astro";
 	<!-- ─── CTA ──────────────────────────────────────────── -->
 	<section class="cta">
 		<div class="cta-bg">
-			<img
+			<Image
 				src="/images/home/let-document-your-story.jpg"
 				alt="Behind the scenes — photographer directing a couple with veil"
 				class="cta-img"
+				width={1920}
+				height={1080}
+				layout="none"
 			/>
 		</div>
 		<div class="cta-content">

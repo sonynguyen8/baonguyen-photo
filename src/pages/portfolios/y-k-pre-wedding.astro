@@ -1,5 +1,6 @@
 ---
 import Base from "../../layouts/Base.astro";
+import { Image } from "astro:assets";
 const bp = "/images/portfolios/Pre-Wedding/Y-K_pre-wedding";
 const imgs = [
 	"DSCF3883.jpg","DSC_0041.jpg","DSC_0142.jpg","DSC_0222.jpg",
@@ -32,7 +33,7 @@ const imgs = [
 		<!-- S1: Hero + 2 stacked (plates 001–003) -->
 		<section class="s1">
 			<div class="s1m">
-				<div class="ic r169"><img src={imgs[0]} alt="Plate 001" loading="lazy" /></div>
+				<div class="ic r169"><Image src={imgs[0]} alt="Plate 001" width={1600} height={900} loading="lazy" layout="none" /></div>
 				<div class="s1meta">
 					<span class="pn" style="margin-top:0">Plate No. 001</span>
 					<span class="pc">Opening Frame</span>
@@ -40,11 +41,11 @@ const imgs = [
 			</div>
 			<div class="s1s">
 				<div>
-					<div class="ic r11"><img src={imgs[1]} alt="Plate 002" loading="lazy" /></div>
+					<div class="ic r11"><Image src={imgs[1]} alt="Plate 002" width={1600} height={900} loading="lazy" layout="none" /></div>
 					<span class="pn">Plate No. 002</span>
 				</div>
 				<div>
-					<div class="ic r34"><img src={imgs[2]} alt="Plate 003" loading="lazy" /></div>
+					<div class="ic r34"><Image src={imgs[2]} alt="Plate 003" width={1600} height={900} loading="lazy" layout="none" /></div>
 					<span class="pn">Plate No. 003</span>
 				</div>
 			</div>
@@ -52,22 +53,22 @@ const imgs = [
 
 		<!-- S2: Full width (plate 004) -->
 		{imgs[3] && <section class="s2">
-			<div class="ic"><img src={imgs[3]} alt="Plate 004" loading="lazy" /></div>
+			<div class="ic"><Image src={imgs[3]} alt="Plate 004" width={1600} height={900} loading="lazy" layout="none" /></div>
 			<div class="s2meta"><span class="pn">Plate No. 004</span></div>
 		</section>}
 
 		<!-- S3: Triptych (plates 005–007) -->
 		{imgs[6] && <section class="s3">
 			<div>
-				<div class="ic r23"><img src={imgs[4]} alt="Plate 005" loading="lazy" /></div>
+				<div class="ic r23"><Image src={imgs[4]} alt="Plate 005" width={1600} height={900} loading="lazy" layout="none" /></div>
 				<span class="pn">Plate No. 005</span>
 			</div>
 			<div>
-				<div class="ic r23"><img src={imgs[5]} alt="Plate 006" loading="lazy" /></div>
+				<div class="ic r23"><Image src={imgs[5]} alt="Plate 006" width={1600} height={900} loading="lazy" layout="none" /></div>
 				<span class="pn">Plate No. 006</span>
 			</div>
 			<div>
-				<div class="ic r23"><img src={imgs[6]} alt="Plate 007" loading="lazy" /></div>
+				<div class="ic r23"><Image src={imgs[6]} alt="Plate 007" width={1600} height={900} loading="lazy" layout="none" /></div>
 				<span class="pn">Plate No. 007</span>
 			</div>
 		</section>}
@@ -75,19 +76,19 @@ const imgs = [
 		<!-- S4: Asymmetric (plates 008–011) -->
 		{imgs[10] && <section class="s4">
 			<div class="s4l">
-				<div class="ic r45"><img src={imgs[7]} alt="Plate 008" loading="lazy" /></div>
+				<div class="ic r45"><Image src={imgs[7]} alt="Plate 008" width={1600} height={900} loading="lazy" layout="none" /></div>
 				<span class="pn">Plate No. 008</span>
 			</div>
 			<div class="s4r">
-				<div class="ic r169"><img src={imgs[8]} alt="Plate 009" loading="lazy" /></div>
+				<div class="ic r169"><Image src={imgs[8]} alt="Plate 009" width={1600} height={900} loading="lazy" layout="none" /></div>
 				<span class="pn">Plate No. 009</span>
 				<div class="s4g">
 					<div>
-						<div class="ic r11"><img src={imgs[9]} alt="Plate 010" loading="lazy" /></div>
+						<div class="ic r11"><Image src={imgs[9]} alt="Plate 010" width={1600} height={900} loading="lazy" layout="none" /></div>
 						<span class="pn">Plate No. 010</span>
 					</div>
 					<div>
-						<div class="ic r11"><img src={imgs[10]} alt="Plate 011" loading="lazy" /></div>
+						<div class="ic r11"><Image src={imgs[10]} alt="Plate 011" width={1600} height={900} loading="lazy" layout="none" /></div>
 						<span class="pn">Plate No. 011</span>
 					</div>
 				</div>

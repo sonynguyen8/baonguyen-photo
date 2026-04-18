@@ -1,5 +1,6 @@
 ---
 import Base from "../layouts/Base.astro";
+import { Image } from "astro:assets";
 ---
 
 <Base title="Contact" description="Reach out to discuss your next project or book a session with Bao Nguyen Studio.">
@@ -14,10 +15,13 @@ import Base from "../layouts/Base.astro";
 				</header>
 
 				<div class="hero-image-wrap">
-					<img
+					<Image
 						src="/images/contact.jpg"
 						alt="Studio Portrait"
 						class="hero-image"
+						width={900}
+						height={1200}
+						layout="none"
 					/>
 					<span class="hero-caption">Studio Wedding, 2024</span>
 				</div>
