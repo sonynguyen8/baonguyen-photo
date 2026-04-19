@@ -1,6 +1,7 @@
 ---
 import Base from "../layouts/Base.astro";
 import { Image } from "astro:assets";
+import { PHONE_NUMBER, PHONE_DISPLAY } from "../config/contact";
 ---
 
 <Base title="Contact" description="Reach out to discuss your next project or book a session with Bao Nguyen Studio.">
@@ -30,8 +31,8 @@ import { Image } from "astro:assets";
 
 				<div class="call-section">
 					<p class="call-label">Direct Assistance</p>
-					<a href="tel:+84941718888" class="call-block">
-						<span class="call-text">Call Us: +84 941 718 888</span>
+					<a href={`tel:${PHONE_NUMBER}`} class="call-block">
+						<span class="call-text">Call Us: {PHONE_DISPLAY}</span>
 						<div class="call-hover-fill"></div>
 					</a>
 				</div>

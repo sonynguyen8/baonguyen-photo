@@ -71,6 +71,9 @@ const pageCtx = createPublicPageContext({
 	<body>
 		<EmDashBodyStart page={pageCtx} />
 
+		<!-- Page transition overlay -->
+		<div class="page-transition" id="page-transition" aria-hidden="true"></div>
+
 		<!-- Cinematic scroll indicator -->
 		<div class="cinematic-scrubber" id="scroll-indicator" aria-hidden="true"></div>
 
@@ -83,6 +86,38 @@ const pageCtx = createPublicPageContext({
 		<Footer />
 
 		<EmDashBodyEnd page={pageCtx} />
+
+		<script>
+			// Page transition
+			const overlay = document.getElementById("page-transition");
+			if (overlay) {
+				// Fade out on enter
+				overlay.classList.add("pt-enter");
+				requestAnimationFrame(() => {
+					requestAnimationFrame(() => overlay.classList.add("pt-visible"));
+				});
+
+				// Intercept all same-origin link clicks
+				document.addEventListener("click", (e) => {
+					const a = (e.target as Element).closest("a");
+					if (!a) return;
+					const href = a.getAttribute("href");
+					if (!href || href.startsWith("#") || href.startsWith("mailto") || href.startsWith("tel")) return;
+					try {
+						const url = new URL(href, location.href);
+						if (url.origin !== location.origin) return;
+					} catch { return; }
+					if (a.target === "_blank") return;
+
+					e.preventDefault();
+					const dest = a.href;
+					overlay.classList.remove("pt-visible");
+					overlay.addEventListener("transitionend", () => {
+						location.href = dest;
+					}, { once: true });
+				});
+			}
+		</script>
 
 		<script>
 			// Cinematic scrubber — tracks scroll depth
@@ -202,6 +237,25 @@ const pageCtx = createPublicPageContext({
 			/* Material icons weight */
 			.material-symbols-outlined {
 				font-variation-settings: "FILL" 0, "wght" 200, "GRAD" 0, "opsz" 24;
+			}
+
+			/* ─── Page Transition Overlay ───────────────── */
+			.page-transition {
+				position: fixed;
+				inset: 0;
+				z-index: 9999;
+				background: var(--color-background);
+				opacity: 1;
+				pointer-events: none;
+				transition: opacity 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+			}
+
+			.page-transition.pt-enter {
+				opacity: 1;
+			}
+
+			.page-transition.pt-visible {
+				opacity: 0;
 			}
 
 			/* ─── Cinematic Scrubber ─────────────────────── */

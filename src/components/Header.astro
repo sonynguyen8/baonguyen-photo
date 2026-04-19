@@ -1,4 +1,5 @@
 ---
+import { PHONE_NUMBER, PHONE_DISPLAY } from "../config/contact";
 const isLoggedIn = !!Astro.locals.user;
 
 const navLinks = [
@@ -38,7 +39,7 @@ const currentPath = Astro.url.pathname;
 
 	<!-- Right: Call btn (desktop) + Hamburger (mobile) -->
 	<div class="nav-actions">
-		<a href="tel:+84941718888" class="nav-call-btn">
+		<a href={`tel:${PHONE_NUMBER}`} class="nav-call-btn">
 			Call me
 		</a>
 		<button class="nav-menu-btn" id="nav-menu-btn" aria-label="Open menu" aria-expanded="false">
@@ -67,9 +68,9 @@ const currentPath = Astro.url.pathname;
 				</a>
 			)
 		}
-		<a href="tel:+84941718888" class="nav-drawer-call-btn">
+		<a href={`tel:${PHONE_NUMBER}`} class="nav-drawer-call-btn">
 			<span class="material-symbols-outlined">call</span>
-			+84 941 718 888
+			{PHONE_DISPLAY}
 		</a>
 	</div>
 </div>
